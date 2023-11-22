@@ -32,10 +32,13 @@
         "./src/*"
       ],
       "feature/*": [
-        "src/4_features/*"
+        "src/features/*"
       ],
       "widget/*": [
-        "src/3_widgets/*"
+        "src/widgets/*"
+      ],
+      "entity/*": [
+        "src/entities/*"
       ]
     }
   },

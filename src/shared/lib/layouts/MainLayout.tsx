@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 
 const MainLayout: FC<{children: ReactNode}> = ({ children }) => {
   return (
-    <div className="flex w-full">
+    <div className="flex w-full min-h-screen">
       <Sidebar/>
       {children}
     </div>
