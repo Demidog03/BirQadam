@@ -1,16 +1,16 @@
 import { FC } from 'react'
 import { CourseSearchBar } from '@/features/course';
-import { NotificationIcon } from '@/features/notification';
-import { Avatar } from '@/features/profile';
+import { NotificationIcon } from 'src/entities/notification';
+import { Avatar } from 'src/entities/profile';
 
 
 const Header: FC = () => {
   return (
     <header className="w-full bg-white px-[50px] py-4 flex justify-between items-center">
       <CourseSearchBar/>
-      <div>
+      <div className="flex items-center gap-2.5">
         <NotificationIcon/>
-        <Avatar />
+        <Avatar imageSrc="some_link" firstName="Otep" lastName="Olzhas"/>
       </div>
     </header>
   );

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Button } from '@/shared/shadcnUI/button.tsx';
-import { TSidebarMenuItem } from '@/features/sidebar/model.ts';
+import { TSidebarMenuItem } from 'feature/sidebar/model.ts';
 import { useNavigate } from 'react-router-dom';
 
 const SidebarMenuItem: FC<TSidebarMenuItem> = ({ isActive, text, icon, routeName }) => {

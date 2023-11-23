@@ -1,2 +1,2 @@
-export { CourseSearchBar } from './CourseSearchBar.tsx'
+export { CourseSearchBar } from './ui/CourseSearchBar.tsx'
 export * as course from './model.ts'
