@@ -1,4 +1,4 @@
-import { Avatar as AvatarIcon, AvatarFallback, AvatarImage} from '@/shared/shadcnUI/avatar.tsx'
+import { Avatar as AvatarIcon, AvatarFallback, AvatarImage } from '@/shared/shadcnUI/avatar.tsx'
 import { FC } from 'react';
 
 interface AvatarInterface {

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useEffectOnce} from "usehooks-ts";
+import { useEffectOnce } from 'usehooks-ts';
 
 const RedirectPage: FC<{path: string}> = ({ path }) => {
   const navigate = useNavigate()
