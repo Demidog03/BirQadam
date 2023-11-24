@@ -1,7 +1,13 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Button } from '@/shared/shadcnUI/button.tsx';
-import { TSidebarMenuItem } from 'feature/sidebar/model.ts';
 import { useNavigate } from 'react-router-dom';
+
+export interface TSidebarMenuItem {
+  icon: ReactNode,
+  isActive: boolean,
+  text: string,
+  routeName: string
+}
 
 const SidebarMenuItem: FC<TSidebarMenuItem> = ({ isActive, text, icon, routeName }) => {
   const navigate = useNavigate()

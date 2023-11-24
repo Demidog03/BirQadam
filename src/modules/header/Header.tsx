@@ -1,7 +1,9 @@
 import { FC } from 'react'
-import { CourseSearchBar } from '@/features/course';
-import { NotificationIcon } from '@/entities/notification';
-import { Avatar } from '@/entities/profile';
+import { CourseSearchBar } from '../courses/CourseSearchBar';
+import NotificationIcon from '@/modules/notifications/NotificationIcon.tsx';
+import Avatar from '@/modules/profile/Avatar.tsx';
+
+
 
 const Header: FC = () => {
   return (

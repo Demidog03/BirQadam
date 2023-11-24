@@ -1,4 +1,4 @@
-import { Sidebar } from '@/widgets/sidebar';
+import Sidebar from '@/modules/sidebar/Sidebar';
 import { FC, ReactNode } from 'react';
 
 const MainLayout: FC<{children: ReactNode}> = ({ children }) => {

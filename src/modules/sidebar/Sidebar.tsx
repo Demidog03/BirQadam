@@ -1,9 +1,7 @@
 import { memo, useEffect, useState } from 'react';
-import usePathnameSegments from '@/shared/lib/hooks/usePathnameSegments.tsx';
-import { TSidebarMenuItem } from '@/features/sidebar/model.ts';
-
 import { BiSolidBriefcase, BiSolidHomeAlt2, BiSolidUser } from 'react-icons/bi';
-import SidebarMenuItem from '@/features/sidebar/ui/SidebarMenuItem';
+import usePathnameSegments from '@/shared/lib/hooks/usePathnameSegments.tsx';
+import SidebarMenuItem, { TSidebarMenuItem } from '@/modules/sidebar/SidebarMenuItem.tsx';
 
 const initialSidebarMenuItems: TSidebarMenuItem[] = [
   {
