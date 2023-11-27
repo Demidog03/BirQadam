@@ -1,5 +1,6 @@
 export interface AuthState {
   user: User | null
+  loading: boolean
 }
 
 export interface User {
@@ -13,12 +14,12 @@ export interface User {
   }
 }
 
-export interface LoginBody {
+export interface LoginPayload {
   username: string
   password: string
 }
 
-export interface RegisterBody {
+export interface RegisterPayload {
   username: string
   email: string
   firstName: string

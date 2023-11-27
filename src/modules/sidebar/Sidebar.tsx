@@ -20,7 +20,7 @@ const initialSidebarMenuItems: TSidebarMenuItem[] = [
     icon: <BiSolidUser className="w-5 h-5"/>,
     isActive: false,
     text: 'Profile',
-    routeName: 'profile'
+    routeName: 'api'
   },
 ];
 

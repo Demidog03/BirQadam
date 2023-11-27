@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { CourseSearchBar } from '../courses/CourseSearchBar';
 import NotificationIcon from '@/modules/notifications/NotificationIcon.tsx';
-import Avatar from '@/modules/profile/Avatar.tsx';
+import Avatar from '@/modules/profile/ui/Avatar.tsx';
 
 
 

@@ -17,14 +17,8 @@ const authSlice = createSlice<AuthState, Reducers<AuthState>>({
   name: 'auth',
   initialState,
   reducers: {
-    authorize: (state, action) => {
+    setProfile: (state, action) => {
       state.user = { ...action.payload }
-    },
-    logout: (state) => {
-      state.user = null
-    },
-    setAuthLoading: (state, action) => {
-      state.loading = action.payload
     }
   }
 })
