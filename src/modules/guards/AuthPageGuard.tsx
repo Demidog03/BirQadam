@@ -1,15 +1,16 @@
 import { type FC, type PropsWithChildren, useState } from 'react'
 import { useLocation, Navigate } from 'react-router'
-import { useSelector } from '../store'
 import AuthPage from '@/pages/AuthPage.tsx';
+import { profileSelector } from '@/modules/profile/model/profile.slice.ts';
+import { useSelector } from '@/store';
 
 
 export const AuthPageGuard: FC<PropsWithChildren> = ({ children }) => {
-  const isAuthenticated = useSelector(isAuthenticatedSelector)
+  const profile = useSelector(profileSelector)
   const location = useLocation()
   const [requestedLocation, setRequestedLocation] = useState<string | null>(null)
 
-  if (!isAuthenticated) {
+  if (!profile) {
     if (location.pathname !== requestedLocation) {
       setRequestedLocation(location.pathname)
     }

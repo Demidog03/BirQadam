@@ -39,7 +39,7 @@ const Sidebar = memo(() => {
 
     return (
       <div className="flex flex-col pl-2 pr-4 pt-[30px] pb-[34px] gap-4 border-r border-[#F7F9FC] shadow-[3px_0px_40px_0px_rgba(87,156,216,0.10)] z-10">
-        <h1 className="text-2xl text-sky-700 font-semibold ml-4 mb-4">BirQadam</h1>
+        <h1 className="text-2xl text-sky-700 font-semibold ml-4 mb-4">OneStep</h1>
         {sidebarMenuItems.map((item) => (
           <SidebarMenuItem
             key={item.routeName}

@@ -1,9 +1,7 @@
 import { FC } from 'react'
-import { CourseSearchBar } from '../courses/CourseSearchBar';
+import { CourseSearchBar } from '../../courses/ui/CourseSearchBar.tsx';
 import NotificationIcon from '@/modules/notifications/NotificationIcon.tsx';
-import Avatar from '@/modules/profile/ui/Avatar.tsx';
-
-
+import ProfileMenu from '@/modules/header/ui/ProfileMenu.tsx';
 
 const Header: FC = () => {
   return (
@@ -11,7 +9,7 @@ const Header: FC = () => {
       <CourseSearchBar/>
       <div className="flex items-center gap-2.5">
         <NotificationIcon/>
-        <Avatar imageSrc="some_link" firstName="Otep" lastName="Olzhas"/>
+        <ProfileMenu/>
       </div>
     </header>
   );

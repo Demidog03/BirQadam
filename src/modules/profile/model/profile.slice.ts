@@ -1,42 +1,43 @@
-import { AuthState, LoginPayload, RegisterPayload, User } from '@/modules/auth/model/auth.types.ts';
 import { CaseReducer, createAction, createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
 import { RootState } from '@/store';
+import { Profile, ProfileState } from '@/modules/profile/model/profile.types.ts';
 
-const initialState: AuthState = {
-  user: null,
+const initialState: ProfileState = {
+  profile: null,
   loading: false
 }
 
 interface Reducers<State> extends SliceCaseReducers<State> {
-  authorize: CaseReducer<State, PayloadAction<User>>
-  logout: CaseReducer<State, PayloadAction>
-  setAuthLoading: CaseReducer<State, PayloadAction<boolean>>
+  setProfile: CaseReducer<State, PayloadAction<Profile>>
+  clearProfile: CaseReducer<State, PayloadAction>
+  setProfileLoading: CaseReducer<State, PayloadAction<boolean>>
 }
 
-const authSlice = createSlice<AuthState, Reducers<AuthState>>({
+const profileSlice = createSlice<ProfileState, Reducers<ProfileState>>({
   name: 'auth',
   initialState,
   reducers: {
     setProfile: (state, action) => {
-      state.user = { ...action.payload }
+      state.profile = { ...action.payload }
+    },
+    clearProfile: (state) => {
+      state.profile = null
+    },
+    setProfileLoading: (state, action) => {
+      state.loading = action.payload
     }
   }
 })
 
-export const login = createAction<LoginPayload>('auth/login')
-export const register = createAction<RegisterPayload>('auth/register')
-export const fetchLogout = createAction('auth/fetchLogout')
-export const fetchAuthWithToken = createAction<{accessToken: string}>('auth/fetchAuthWithToken')
+export const fetchProfile = createAction('profile/fetchProfile')
 
 export const {
-  authorize,
-  logout,
-  setAuthLoading
-} = authSlice.actions
+  setProfileLoading,
+  setProfile,
+  clearProfile
+} = profileSlice.actions
 
-export const userSelector = (state: RootState): User | null => state.auth.user
-export const isAuthenticatedSelector = (state: RootState): boolean => !!state.auth.user
-export const accessTokenSelector = (state: RootState): string | undefined => state.auth.user?.token.accessToken
-export const authLoadingSelector = (state: RootState): boolean => state.auth.loading
+export const profileSelector = (state: RootState): Profile | null => state.profile.profile
+export const profileLoadingSelector = (state: RootState): boolean => state.profile.loading
 
-export default authSlice.reducer
+export default profileSlice.reducer

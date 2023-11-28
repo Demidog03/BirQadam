@@ -1,17 +1,14 @@
+import { ActionError } from '@/shared/lib/types.ts';
+
 export interface AuthState {
-  user: User | null
+  token: Token | null
   loading: boolean
+  errors: ActionError[]
 }
 
-export interface User {
-  username: string
-  firstName: string
-  lastName: string
-  email: string
-  token: {
-    accessToken: string
-    refreshToken: string
-  }
+export interface Token {
+  accessToken: string
+  refreshToken: string
 }
 
 export interface LoginPayload {

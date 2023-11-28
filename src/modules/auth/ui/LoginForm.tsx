@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { authLoadingSelector, login } from '@/modules/auth/model/auth.slice.ts';
 import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 import { useSelector } from '@/store';
+import PasswordInput from '@/shared/ui/PasswordInput.tsx';
 
 interface LoginValues {
   username: string
@@ -63,9 +64,9 @@ const LoginForm: FC = () => {
           </div>
           <div className="space-y-1">
             <Label htmlFor="password">Password</Label>
-            <Input
+            <PasswordInput
               id="password"
-              onChange={formik.handleChange}
+              handleChange={formik.handleChange}
               value={formik.values.password}
             />
             {formik.errors.password && (

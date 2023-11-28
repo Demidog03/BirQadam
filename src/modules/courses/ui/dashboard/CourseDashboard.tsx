@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import CourseDashboardCard from '@/modules/courses/CourseDashboardCard.tsx';
+import CourseDashboardCard from '@/modules/courses/ui/dashboard/CourseDashboardCard.tsx';
 
 
 const CourseDashboard: FC = () => {

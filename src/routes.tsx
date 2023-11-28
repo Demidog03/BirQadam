@@ -3,22 +3,28 @@ import { HomePage } from '@/lazyPages.tsx';
 import MainLayout from '@/shared/lib/layouts/MainLayout.tsx';
 import RedirectPage from '@/pages/RedirectPage.tsx';
 import AuthPage from '@/pages/AuthPage.tsx';
+import { AuthPageGuard } from '@/modules/guards/AuthPageGuard.tsx';
+import {UserPageGuard} from "@/modules/guards/UserPageGuard.tsx";
 
 export const router: RouteObject[] = [
   {
     path: '/home',
     element: (
-      <MainLayout>
-        <HomePage/>
-      </MainLayout>
+      <AuthPageGuard>
+        <MainLayout>
+          <HomePage/>
+        </MainLayout>
+      </AuthPageGuard>
     ),
     children: [
       {
         path: 'do',
         element: (
-          <MainLayout>
-            <HomePage/>
-          </MainLayout>
+          <AuthPageGuard>
+            <MainLayout>
+              <HomePage/>
+            </MainLayout>
+          </AuthPageGuard>
         ),
       }
     ]
@@ -32,7 +38,9 @@ export const router: RouteObject[] = [
   {
     path: '/login',
     element: (
-      <AuthPage/>
+      <UserPageGuard>
+        <AuthPage/>
+      </UserPageGuard>
     )
   }
 ]

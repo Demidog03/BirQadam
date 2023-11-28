@@ -5,10 +5,12 @@ import { Label } from '@/shared/shadcnUI/label.tsx';
 import { FC } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import {authLoadingSelector, register} from '@/modules/auth/model/auth.slice.ts';
+import { authErrorsSelector, authLoadingSelector, register } from '@/modules/auth/model/auth.slice.ts';
 import { useDispatch } from 'react-redux';
-import BackdropLoading from "@/shared/ui/BackdropLoading.tsx";
-import {useSelector} from "@/store";
+import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
+import { useSelector } from '@/store';
+import PasswordInput from '@/shared/ui/PasswordInput.tsx';
+import { useUpdateEffect } from 'usehooks-ts';
 
 interface RegisterValues {
   username: string
@@ -32,14 +34,20 @@ const RegisterValueSchema = Yup.object().shape({
     .required('Password required'),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match'),
-  email: Yup.string(),
+  email: Yup.string()
+    .matches(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      'Invalid email'
+    )
+    .required('Email required'),
   firstName: Yup.string(),
   lastName: Yup.string(),
 })
 
-const RegisterForm: FC = () => {
+const RegisterForm: FC<{setTab: (tab: 'login' | 'register') => void}> = ({ setTab }) => {
   const dispatch = useDispatch()
   const loading = useSelector(authLoadingSelector)
+  const errors = useSelector(authErrorsSelector)
 
   const formik = useFormik<RegisterValues>({
     initialValues: {
@@ -63,6 +71,13 @@ const RegisterForm: FC = () => {
       }))
     },
   })
+
+  useUpdateEffect(() => {
+    console.log(errors)
+    if(!errors.find(error => error.actionType === register.type)) {
+      setTab('login')
+    }
+  }, [errors, setTab]);
   
   return (
     <>
@@ -92,6 +107,9 @@ const RegisterForm: FC = () => {
               onChange={formik.handleChange}
               value={formik.values.email}
             />
+            {formik.errors.email && (
+              <div className="text-red-900 text-sm">{formik.errors.email}</div>
+            )}
           </div>
           <div className="space-y-1">
             <Label htmlFor="firstName">First Name</Label>
@@ -111,9 +129,9 @@ const RegisterForm: FC = () => {
           </div>
           <div className="space-y-1">
             <Label htmlFor="password">Password</Label>
-            <Input
+            <PasswordInput
               id="password"
-              onChange={formik.handleChange}
+              handleChange={formik.handleChange}
               value={formik.values.password}
             />
             {formik.errors.password && (
@@ -122,9 +140,9 @@ const RegisterForm: FC = () => {
           </div>
           <div className="space-y-1">
             <Label htmlFor="repeatPassword">Repeat password</Label>
-            <Input
+            <PasswordInput
               id="repeatPassword"
-              onChange={formik.handleChange}
+              handleChange={formik.handleChange}
               value={formik.values.repeatPassword}
             />
             {formik.errors.repeatPassword && (
