@@ -14,7 +14,7 @@ interface Reducers<State> extends SliceCaseReducers<State> {
 }
 
 const profileSlice = createSlice<ProfileState, Reducers<ProfileState>>({
-  name: 'auth',
+  name: 'profile',
   initialState,
   reducers: {
     setProfile: (state, action) => {

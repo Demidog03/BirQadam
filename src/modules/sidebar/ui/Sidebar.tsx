@@ -1,7 +1,9 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { BiSolidBriefcase, BiSolidHomeAlt2, BiSolidUser } from 'react-icons/bi';
 import usePathnameSegments from '@/shared/lib/hooks/usePathnameSegments.tsx';
-import SidebarMenuItem, { TSidebarMenuItem } from '@/modules/sidebar/SidebarMenuItem.tsx';
+import SidebarMenuItem, { TSidebarMenuItem } from '@/modules/sidebar/ui/SidebarMenuItem.tsx';
+import {useDispatch} from "react-redux";
+import {setSidebarWidth} from "@/modules/sidebar/model/sidebar.slice.ts";
 
 const initialSidebarMenuItems: TSidebarMenuItem[] = [
   {
@@ -26,6 +28,8 @@ const initialSidebarMenuItems: TSidebarMenuItem[] = [
 
 const Sidebar = memo(() => {
   {
+    const dispatch = useDispatch()
+    const sidebarRef = useRef<HTMLDivElement | null>(null)
     const pathnameSegments = usePathnameSegments();
     const [sidebarMenuItems, setSidebarMenuItems] = useState<TSidebarMenuItem[]>(initialSidebarMenuItems);
 
@@ -37,8 +41,14 @@ const Sidebar = memo(() => {
       setSidebarMenuItems(updatedItems);
     }, [pathnameSegments]);
 
+    useEffect(() => {
+      if (sidebarRef.current?.clientWidth) {
+        dispatch(setSidebarWidth(sidebarRef.current.clientWidth))
+      }
+    }, [dispatch, sidebarRef]);
+
     return (
-      <div className="flex flex-col pl-2 pr-4 pt-[30px] pb-[34px] gap-4 border-r border-[#F7F9FC] shadow-[3px_0px_40px_0px_rgba(87,156,216,0.10)] z-10">
+      <div ref={sidebarRef} className="flex flex-col pl-2 pr-4 pt-[30px] pb-[34px] gap-4 border-r border-[#F7F9FC] shadow-[3px_0px_40px_0px_rgba(87,156,216,0.10)] z-10">
         <h1 className="text-2xl text-sky-700 font-semibold ml-4 mb-4">OneStep</h1>
         {sidebarMenuItems.map((item) => (
           <SidebarMenuItem

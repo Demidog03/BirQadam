@@ -4,6 +4,7 @@ import { configureStore, MiddlewareArray } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-redux';
 import authReducer from '../modules/auth/model/auth.slice.ts'
 import profileReducer from '../modules/profile/model/profile.slice.ts'
+import sidebarReducer from '../modules/sidebar/model/sidebar.slice.ts'
 
 const sagaMiddleware = createSagaMiddleware()
 const middlewares = new MiddlewareArray(sagaMiddleware)
@@ -11,7 +12,8 @@ const middlewares = new MiddlewareArray(sagaMiddleware)
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    sidebar: sidebarReducer,
   },
   devTools: true,
   middleware: middlewares

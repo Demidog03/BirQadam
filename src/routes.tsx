@@ -4,7 +4,7 @@ import MainLayout from '@/shared/lib/layouts/MainLayout.tsx';
 import RedirectPage from '@/pages/RedirectPage.tsx';
 import AuthPage from '@/pages/AuthPage.tsx';
 import { AuthPageGuard } from '@/modules/guards/AuthPageGuard.tsx';
-import {UserPageGuard} from "@/modules/guards/UserPageGuard.tsx";
+import { UserPageGuard } from '@/modules/guards/UserPageGuard.tsx';
 
 export const router: RouteObject[] = [
   {

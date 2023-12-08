@@ -74,3 +74,39 @@
     @apply bg-background text-foreground;
   }
 }
+
+html {
+  overflow-x: hidden;
+}
+
+.swiper-button-disabled{
+  display:none;
+}
+
+.swiper-button-prev {
+  margin-left: 10px;
+}
+
+.swiper-button-next {
+  margin-right: 10px;
+}
+
+.swiper-button-prev, .swiper-button-next {
+  background-color: rgba(255, 255, 255, 1);
+  padding: 20px 22px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.swiper-button-prev::after, .swiper-button-next::after {
+  font-size: 20px;
+  font-weight: 900;
+  color: rgb(3, 105, 161);
+}
+
+.swiper-button-prev::after {
+  transform: translate(-1.5px, 1px);
+}
+.swiper-button-next::after {
+  transform: translate(1.5px, 1px);
+}

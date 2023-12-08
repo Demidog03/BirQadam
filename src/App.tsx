@@ -1,3 +1,6 @@
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import './global.css'
 import { useNavigate, useRoutes } from 'react-router-dom';
 import { router } from '@/routes.tsx';
