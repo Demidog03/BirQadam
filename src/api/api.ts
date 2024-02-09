@@ -5,7 +5,7 @@ import { toast } from '@/shared/shadcnUI/use-toast.tsx';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
 export const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api/v1',
+  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json'
@@ -14,7 +14,7 @@ export const api: AxiosInstance = axios.create({
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
 export const apiWithAuthAndErrorMessaging: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api/v1',
+  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json'

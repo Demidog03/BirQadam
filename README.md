@@ -1,27 +1,19 @@
-# React + TypeScript + Vite
+# OneStep Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. Setup local variables
+- In root folder copy ".env.example" file and rename it to ".env.local"
+- Change variables inside ".env.local" files if it is required
 
-Currently, two official plugins are available:
+## 2. Run the project
+- In root folder run `npm install`
+- To start the project in dev mode, in root folder run `npm run dev`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## For "OneStep" team devs
+### Git commit message conventions:
+- **docs:** _message_ - Documentation changes
+- **build:** _message_ - changes related to building the code (e.g. adding npm dependencies or external libraries)
+- **feat:** _message_ - A new feature
+- **fix:** _message_ - A bug fix
+- **refactor:** _message_ - A code that neither fix bug nor adds a feature
+- **perf:** _message_ - A code that improves performance style: A code that is related to styling
+- **test:** _message_ - Adding new test or making changes to existing test
