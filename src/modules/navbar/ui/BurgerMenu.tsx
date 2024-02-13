@@ -13,7 +13,7 @@ import HelpIcon from './HelpIcon';
 
 const BurgerMenu: FC = () => {
   return (
-    <div className="flex justify-end items-center lg:hidden">
+    <div className="w-16 flex justify-between items-center lg:hidden">
       <HelpIcon />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
