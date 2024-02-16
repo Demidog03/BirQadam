@@ -48,7 +48,7 @@ const SigninForm: FC = () => {
 
   return (
     <>
-      <Card className="max-w-[480px] m-auto transition">
+      <Card className="max-w-[480px] w-full m-auto transition">
         <CardHeader className="flex justify-center items-center">
           <CardTitle className="text-[#0d141c] text-3xl font-bold md:text-4xl">
             Log in to OneStep
