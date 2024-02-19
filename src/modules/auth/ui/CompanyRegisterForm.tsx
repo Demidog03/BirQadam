@@ -64,8 +64,8 @@ const CompanyRegisterForm: FC = () => {
   return (
     <>
       <div className="flex  justify-center items-center">
-        <div className="flex flex-col w-full min-h-screen h-full py-[50px] justify-center items-center gap-10" style={{ maxWidth: '34rem' }}>
-          <h1 className="slite-950 text-4xl font-bold text-center" style={ { fontSize: '32px', lineHeight: '40px' }}>Зарегистрируйте вашу компанию</h1>
+        <div className="flex flex-col w-full min-h-screen h-full py-[50px] justify-center items-center gap-10 max-w-[34rem]" >
+          <h1 className="slite-950 font-bold text-center text-[32px]/[40px]" >Зарегистрируйте вашу компанию</h1>
           <div className="w-[94%] border-0 flex flex-col">
             <div className="space-y-1 mb-[30px]">
               <Input
@@ -108,17 +108,16 @@ const CompanyRegisterForm: FC = () => {
               <Label htmlFor="companyLogo" className=' text-[14px] ml-1 font-normal text-[#4F7596] cursor-pointer'>Загрузите логотип компании</Label>
               <Input
                 id='companyLogo'
-                className='border-0'
+                className='border-0 hidden'
                 type='file'
                 onChange={fileHandleChange}
                 value={formik.values.companyLogo}
-                style={{ display: 'none' }}
                 accept=".png,.jpg,.jpeg,.gif"
                 
               />
             </div>
                 
-            <div ><img src={image} style={{ maxHeight: '100px', maxWidth: '100px', marginBottom:'20px' }} /></div>
+            <div ><img src={image} className=' max-h-[100px] max-w-[100px] mb-[20px]' /></div>
             <Button type="button" className=' bg-[#1A8AE5] hover:bg-[#0369A1]' onClick={() => {formik.handleSubmit()}}>Продолжить</Button>
 
           </div>
