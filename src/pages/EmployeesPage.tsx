@@ -4,6 +4,7 @@ import ManagerEmployeesList from '@/modules/employees/ui/ManagerEmployeesList.ts
 import SearchInput from '@/shared/ui/SearchInput.tsx'
 import { BiSearch } from 'react-icons/bi'
 import EmployeesList from '@/modules/employees/ui/EmployeesList';
+import InviteEmployee from '@/modules/employees/ui/InviteEmployee';
 
 const EmployeesPage: FC = () => {
   return (
@@ -16,6 +17,7 @@ const EmployeesPage: FC = () => {
         </div>
         <ManagerEmployeesList/>
         <EmployeesList/>
+        <InviteEmployee/>
       </div>
     </div>
   );
