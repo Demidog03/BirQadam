@@ -2,6 +2,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './global.css'
+import './app.css'
 import { useNavigate, useRoutes } from 'react-router-dom';
 import { router } from '@/routes.tsx';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -33,13 +34,13 @@ function App() {
       navigate('/login')
     }
   })
-  
+
   useUpdateEffect(() => {
     if(tokens?.accessToken) {
       dispatch(fetchProfile())
     }
   }, [tokens])
-  
+
   return (
     <>
       { content }
