@@ -5,7 +5,6 @@ import RedirectPage from '@/pages/RedirectPage.tsx';
 import AuthPage from '@/pages/AuthPage.tsx';
 import { AuthPageGuard } from '@/modules/guards/AuthPageGuard.tsx';
 import { UserPageGuard } from '@/modules/guards/UserPageGuard.tsx';
-import EmployeesPage from './pages/EmployeesPage';
 
 export const router: RouteObject[] = [
   {
