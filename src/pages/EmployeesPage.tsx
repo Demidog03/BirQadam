@@ -3,6 +3,7 @@ import { FC } from 'react';
 import ManagerEmployeesList from '@/modules/employees/ui/ManagerEmployeesList.tsx'
 import SearchInput from '@/shared/ui/SearchInput.tsx'
 import { BiSearch } from 'react-icons/bi'
+import EmployeesList from '@/modules/employees/ui/EmployeesList';
 
 const EmployeesPage: FC = () => {
   return (
@@ -14,6 +15,7 @@ const EmployeesPage: FC = () => {
           <SearchInput leftContent={<BiSearch className="text-[24px]" />} placeholder="Поиск по именам, почте и команде" className=""/>
         </div>
         <ManagerEmployeesList/>
+        <EmployeesList/>
       </div>
     </div>
   );
