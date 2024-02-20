@@ -4,10 +4,10 @@ import { Button } from '@/shared/shadcnUI/button.tsx'
 const ManagerEmployeesList: FC = () => {
   return (
     <div>
-      <Button>All</Button>
-      <Button>Active</Button>
-      <Button>Invited</Button>
-      <Button>Pending</Button>
+      <Button variant={'outline'} className='hover:text-[#4f7596]'>Все</Button>
+      <Button variant={'outline'} className='hover:text-[#4f7596]'>Активные</Button>
+      <Button variant={'outline'} className='hover:text-[#4f7596]'>Приглашенные</Button>
+      <Button variant={'outline'} className='hover:text-[#4f7596]'>В ожидании</Button>
     </div>
   )
 }
