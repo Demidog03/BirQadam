@@ -8,6 +8,10 @@ interface Values {
   email: string
 }
 
+interface InviteEmployeeParams {
+  handleChange: (value: string) => void
+}
+
 const ValueSchema = Yup.object().shape({
   email: Yup.string()
     .matches(
@@ -17,15 +21,15 @@ const ValueSchema = Yup.object().shape({
     )
 })
 
-const InviteEmployee: FC = () => {
+const InviteEmployee: FC<InviteEmployeeParams> = ({ handleChange }) => {
   const formik = useFormik<Values>({
     initialValues: {
       email: '',
     },
     validationSchema: ValueSchema,
-    onSubmit: values => {
-      console.log(values)
-
+    onSubmit: (value, { resetForm }) => {
+      handleChange(value.email)
+      resetForm()
     },
   })
   return (
