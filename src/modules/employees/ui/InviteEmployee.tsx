@@ -29,9 +29,9 @@ const InviteEmployee: FC = () => {
     },
   })
   return (
-    <div className='flex items-center w-full h-[56px] my-8 mx-3'>
+    <div className='flex items-center w-full h-[56px] my-8 mx-3 max-[430px]:h-[50px]'>
       <Input
-        className='max-w-[480px] h-full border-[#d1dbe8] rounded-xl text-base placeholder:text-[#4f7596]'
+        className='max-w-[480px] h-full border-[#d1dbe8] rounded-xl text-base placeholder:text-[#4f7596] max-[430px]:text-[14px]'
         id="email"
         placeholder='Введите почту сотрудника'
         onChange={formik.handleChange}
@@ -40,7 +40,7 @@ const InviteEmployee: FC = () => {
       {formik.errors.email && (
         <div className="text-red-900 text-sm">{formik.errors.email}</div>
       )}
-      <IoIosAddCircle onClick={() => {formik.handleSubmit()}} className='h-[56px] w-[56px] ml-3 fill-[#5d7285] cursor-pointer ease-in-out hover:fill-[#5D6A86]'/>
+      <IoIosAddCircle onClick={() => {formik.handleSubmit()}} className='h-[56px] w-[56px] ml-3 fill-[#5d7285] cursor-pointer ease-in-out hover:fill-[#5D6A86] max-[430px]:h-[50px] max-[430px]:w-[50px]'/>
     </div>
   )
 }

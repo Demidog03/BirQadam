@@ -12,7 +12,7 @@ interface AvatarInterface {
 
 const AvatarEmployee: FC<AvatarInterface> = ({ isActive = false, imageSrc, firstName, lastName, invite = false }) => {
   return (
-    <div className="w-[56px] h-[56px] relative">
+    <div className="w-[56px] h-[56px] relative max-[430px]:w-[50px] max-[430px]:h-[50px]">
       {isActive && <div className='absolute right-0 bottom-0 rounded-full bg-[green] w-[13px] h-[13px] z-10'></div>}
       <AvatarIcon className='w-full h-full'>
         <AvatarImage className={isActive ? '' : 'grayscale'} src={imageSrc} alt="user avatar"/>
