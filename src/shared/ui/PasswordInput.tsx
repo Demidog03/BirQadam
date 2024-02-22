@@ -7,9 +7,10 @@ interface PasswordInputProps {
   id: string
   handleChange: (params: never) => void
   value: string
+  placeholder?: string
 }
 
-const PasswordInput: FC<PasswordInputProps> = ({ className = '', id, handleChange, value }) => {
+const PasswordInput: FC<PasswordInputProps> = ({ className = '', id, handleChange, value, placeholder }) => {
   const [isHidden, setIsHidden] = useState<boolean>(true)
 
   return (
@@ -20,11 +21,12 @@ const PasswordInput: FC<PasswordInputProps> = ({ className = '', id, handleChang
         type={isHidden ? 'password' : 'text'}
         onChange={handleChange}
         value={value}
+        placeholder={placeholder}
       />
       {
         isHidden
-          ? <BiHide className="cursor-pointer absolute right-2 top-[50%] translate-y-[-50%] text-lg" onClick={setIsHidden.bind(null, false)}/>
-          : <BiShowAlt className="cursor-pointer absolute right-2 top-[50%] translate-y-[-50%] text-lg" onClick={setIsHidden.bind(null, true)}/>
+          ? <BiHide className="cursor-pointer absolute right-2 top-[50%] translate-y-[-50%] text-lg" onClick={setIsHidden.bind(null, false)} />
+          : <BiShowAlt className="cursor-pointer absolute right-2 top-[50%] translate-y-[-50%] text-lg" onClick={setIsHidden.bind(null, true)} />
       }
     </div>
   );
