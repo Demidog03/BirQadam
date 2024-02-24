@@ -29,7 +29,7 @@ const LoginValueSchema = Yup.object().shape({
     .required('Username required'),
   job_title: Yup.string()
     .min(2, 'Минимум 2 буквы')
-    .required('Password required'),
+    .required('job title required'),
   email: Yup.string()
     .matches(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
