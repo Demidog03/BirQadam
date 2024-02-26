@@ -10,9 +10,9 @@ const EmployeesList: FC = () => {
 
   const handleChange = (value: string) => {
     dispatch(addEmployee({
-      full_name: value,
-      avatarsrc: '',
-      job_title: 'В ожидании',
+      fullName: value,
+      avatarSrc: '',
+      jobTitle: 'В ожидании',
       isActive: false,
     }))
   };

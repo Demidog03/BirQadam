@@ -3,8 +3,8 @@ export interface EmployeesState {
 }
 
 export interface Employee {
-  full_name: string
-  avatarsrc: string
-  job_title: string
+  fullName: string
+  avatarSrc: string
+  jobTitle: string
   isActive: boolean
 }
