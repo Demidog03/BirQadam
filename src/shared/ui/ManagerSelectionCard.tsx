@@ -8,7 +8,7 @@ export interface ManagerSelectionCardProps {
   buttonStyle?: string;
   buttonText?: string;
 }
-//'w-[18.6%] max-w-[96px]'
+
 export const ManagerSelectionCard = (props: ManagerSelectionCardProps) => {
   return (
     <div className='flex justify-center '>
