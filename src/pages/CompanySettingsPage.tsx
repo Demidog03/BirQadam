@@ -10,19 +10,13 @@ import ManagerSelectionCard from '@/shared/ui/ManagerSelectionCard';
 import { Input } from '@/shared/shadcnUI/input';
 import { Label } from '@/shared/shadcnUI/label';
 import { ChangeEvent, useState } from 'react';
-//import { useFormik } from 'formik';
+
 import { Button } from '@/shared/shadcnUI/button';
 import BackdropLoading from '@/shared/ui/BackdropLoading';
-//import { useDispatch } from 'react-redux/es/exports';
 import { useSelector } from '@/store';
 import { authLoadingSelector } from '@/modules/auth/model/auth.slice';
 import { IoPersonAddSharp } from 'react-icons/io5';
 
-/*interface CompanySettingsFormValues {
-  companyName: string;
-  companyLogo: string;
-}
-*/
 const onlick = () => {
   console.log('dwws');
 };
@@ -66,26 +60,7 @@ const mockData = [
 
 export const CompanySettingsPage = () => {
   const [image, setImage] = useState('https://github.com/shadcn.png');
-  //const dispatch = useDispatch();
   const loading = useSelector(authLoadingSelector);
-
-  /*const formik = useFormik<CompanySettingsFormValues>({
-    initialValues: {
-      companyName: '',
-      companyLogo: '',
-    },
-    validationSchema: CompanyRegisterSchema,
-    onSubmit: (values) => {
-      dispatch(
-        companyRegister({
-          companyName: values.companyName,
-          BIN: values.BIN,
-          numberOfEmployees: values.numberOfEmployees,
-          companyLogo: values.companyLogo,
-        })
-      );
-    },
-  });*/
 
   const fileHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFileList = e.target.files as FileList;
@@ -123,7 +98,6 @@ export const CompanySettingsPage = () => {
                 className='border-0 hidden'
                 type='file'
                 onChange={fileHandleChange}
-                //value={formik.values.companyLogo}
                 accept='.png,.jpg,.jpeg,.gif'
               />
             </div>
@@ -132,16 +106,9 @@ export const CompanySettingsPage = () => {
             <div className='space-y-1 mb-[10px]'>
               <Input
                 id='companyName'
-                //onChange={formik.handleChange}
-                //value={formik.values.companyName}
                 defaultValue={'OneStep'}
                 className=' h-[56px] text-base'
               />
-              {/*formik.errors.companyName && (
-                <div className='!mb-[-24px] text-rose-500 ml-1 text-sm'>
-                  {formik.errors.companyName}
-                </div>
-              )*/}
             </div>
 
             <div>
@@ -209,9 +176,6 @@ export const CompanySettingsPage = () => {
               <Button
                 type='button'
                 className=' bg-[#1A8AE5] hover:bg-[#0369A1] rounded-xl'
-                /*onClick={() => {
-                formik.handleSubmit();
-              }}*/
               >
                 Сохранить
               </Button>
