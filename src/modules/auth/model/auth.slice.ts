@@ -1,4 +1,4 @@
-import { AuthState, LoginPayload, RegisterPayload, Token } from '@/modules/auth/model/auth.types.ts';
+import { AuthState, CompanyRegisterPayload, LoginPayload, RegisterPayload, Token } from '@/modules/auth/model/auth.types.ts';
 import { CaseReducer, createAction, createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
 import { RootState } from '@/store';
 import { ActionError } from '@/shared/lib/types.ts';
@@ -47,6 +47,7 @@ const authSlice = createSlice<AuthState, Reducers<AuthState>>({
 export const login = createAction<LoginPayload>('auth/login')
 export const register = createAction<RegisterPayload>('auth/register')
 export const fetchLogout = createAction('auth/fetchLogout')
+export const companyRegister = createAction<CompanyRegisterPayload>('auth/company')
 
 export const {
   authorize,

@@ -5,6 +5,7 @@ import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-red
 import authReducer from '../modules/auth/model/auth.slice.ts'
 import profileReducer from '../modules/profile/model/profile.slice.ts'
 import sidebarReducer from '../modules/sidebar/model/sidebar.slice.ts'
+import employeesReducer from '../modules/employees/model/employee.slice.ts'
 
 const sagaMiddleware = createSagaMiddleware()
 const middlewares = new MiddlewareArray(sagaMiddleware)
@@ -14,6 +15,7 @@ const store = configureStore({
     auth: authReducer,
     profile: profileReducer,
     sidebar: sidebarReducer,
+    employees: employeesReducer,
   },
   devTools: true,
   middleware: middlewares
