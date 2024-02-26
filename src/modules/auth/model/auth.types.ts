@@ -1,9 +1,11 @@
-import { ActionError } from '@/shared/lib/types.ts';
+import { ActionError, ActionLoading } from '@/shared/lib/types.ts';
 
 export interface AuthState {
   token: Token | null
-  loading: boolean
+  loading: ActionLoading[]
   errors: ActionError[]
+  registerStep: 0 | 1
+  tempUserId: number | null
 }
 
 export interface Token {
@@ -17,7 +19,8 @@ export interface LoginPayload {
 }
 
 export interface RegisterPayload {
-  username: string
+  post: string
+  dateOfBirth: string
   email: string
   firstName: string
   lastName: string
@@ -30,4 +33,9 @@ export interface CompanyRegisterPayload {
   BIN: string
   numberOfEmployees : number | string
   companyLogo: string
+}
+
+export interface SendCodePayload {
+  userId: number
+  code: string
 }

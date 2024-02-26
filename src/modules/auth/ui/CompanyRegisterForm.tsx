@@ -29,7 +29,6 @@ const CompanyRegisterSchema = Yup.object().shape({
 
 const CompanyRegisterForm: FC = () => {
   const dispatch = useDispatch()
-  const loading = useSelector(authLoadingSelector)
   const [image, setImage] = useState('')
 
   const formik = useFormik<CompanyRegisterFormValues>({
@@ -121,7 +120,6 @@ const CompanyRegisterForm: FC = () => {
             <Button type="button" className=' bg-[#1A8AE5] hover:bg-[#0369A1]' onClick={() => {formik.handleSubmit()}}>Продолжить</Button>
 
           </div>
-          <BackdropLoading loading={loading}/>
         </div>
       </div>
     </>

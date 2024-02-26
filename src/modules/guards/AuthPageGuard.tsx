@@ -1,8 +1,8 @@
 import { type FC, type PropsWithChildren, useState } from 'react'
 import { useLocation, Navigate } from 'react-router'
-import AuthPage from '@/pages/AuthPage.tsx';
 import { profileSelector } from '@/modules/profile/model/profile.slice.ts';
 import { useSelector } from '@/store';
+import { LoginPage } from '@/lazyPages.tsx';
 
 
 export const AuthPageGuard: FC<PropsWithChildren> = ({ children }) => {
@@ -14,7 +14,7 @@ export const AuthPageGuard: FC<PropsWithChildren> = ({ children }) => {
     if (location.pathname !== requestedLocation) {
       setRequestedLocation(location.pathname)
     }
-    return <AuthPage/>
+    return <LoginPage/>
   }
 
   if (requestedLocation && location.pathname !== requestedLocation) {

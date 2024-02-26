@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { authLoadingSelector, login } from '@/modules/auth/model/auth.slice.ts';
 import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 import { useSelector } from '@/store';
+import { useNavigate } from 'react-router-dom';
 
 interface SigninValues {
   username: string;
@@ -28,7 +29,8 @@ const SigninValueSchema = Yup.object().shape({
 
 const SigninForm: FC = () => {
   const dispatch = useDispatch();
-  const loading = useSelector(authLoadingSelector);
+  const loading = useSelector(authLoadingSelector(login.type));
+  const navigate = useNavigate()
 
   const formik = useFormik<SigninValues>({
     initialValues: {
@@ -87,7 +89,7 @@ const SigninForm: FC = () => {
             )}
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col">
           <Button
             className="bg-[#1a8ae5] w-full rounded-[12px]"
             type="button"
@@ -95,8 +97,9 @@ const SigninForm: FC = () => {
               formik.handleSubmit();
             }}
           >
-            Sign in
+            Войти
           </Button>
+          <Button variant="link" onClick={() => { navigate('/register'); }}>Создать команду</Button>
         </CardFooter>
       </Card>
       <BackdropLoading loading={loading} />

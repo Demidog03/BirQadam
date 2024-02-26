@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import SigninForm from '@/modules/auth/ui/SigninForm';
+import SigninForm from '@/modules/auth/ui/SigninForm.tsx';
 
 const LoginPage: FC = () => {
   return (
