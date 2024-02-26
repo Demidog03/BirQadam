@@ -24,3 +24,10 @@ export interface RegisterPayload {
   password: string
   repeatPassword: string
 }
+
+export interface CompanyRegisterPayload {
+  companyName: string
+  BIN: string
+  numberOfEmployees : number | string
+  companyLogo: string
+}
