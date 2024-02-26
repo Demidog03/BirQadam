@@ -1,5 +1,5 @@
 import { type RouteObject } from 'react-router-dom'
-import { HomePage } from '@/lazyPages.tsx';
+import { EmployeesPage, HomePage } from '@/lazyPages.tsx'
 import MainLayout from '@/shared/lib/layouts/MainLayout.tsx';
 import RedirectPage from '@/pages/RedirectPage.tsx';
 import AuthPage from '@/pages/AuthPage.tsx';
@@ -41,6 +41,12 @@ export const router: RouteObject[] = [
       <UserPageGuard>
         <AuthPage/>
       </UserPageGuard>
+    )
+  },
+  {
+    path: '/employees',
+    element: (
+      <EmployeesPage/>
     )
   }
 ]
