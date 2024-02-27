@@ -16,6 +16,12 @@ export const AuthPageGuard: FC<PropsWithChildren> = ({ children }) => {
     }
     return <LoginPage/>
   }
+  if (profile.company === null) {
+    if (location.pathname !== requestedLocation) {
+      setRequestedLocation(location.pathname)
+    }
+    return <Navigate to="/createCompany" />
+  }
 
   if (requestedLocation && location.pathname !== requestedLocation) {
     setRequestedLocation(null)

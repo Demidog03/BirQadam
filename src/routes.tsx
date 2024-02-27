@@ -1,5 +1,5 @@
 import { type RouteObject } from 'react-router-dom'
-import { EmployeesPage, HomePage, LoginPage, RegisterPage } from '@/lazyPages.tsx'
+import {CreateCompanyPage, EmployeesPage, HomePage, LoginPage, RegisterPage} from '@/lazyPages.tsx'
 import MainLayout from '@/shared/lib/layouts/MainLayout.tsx';
 import RedirectPage from '@/pages/RedirectPage.tsx';
 import { AuthPageGuard } from '@/modules/guards/AuthPageGuard.tsx';
@@ -37,6 +37,14 @@ export const router: RouteObject[] = [
       <UserPageGuard>
         <RegisterPage/>
       </UserPageGuard>
+    )
+  },
+  {
+    path: '/createCompany',
+    element: (
+      <AuthPageGuard>
+        <CreateCompanyPage/>
+      </AuthPageGuard>
     )
   },
   {

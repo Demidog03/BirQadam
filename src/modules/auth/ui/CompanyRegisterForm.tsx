@@ -4,10 +4,11 @@ import { ChangeEvent, FC, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useDispatch } from 'react-redux';
-import { authLoadingSelector, companyRegister } from '@/modules/auth/model/auth.slice.ts';
+import { companyRegister } from '@/modules/auth/model/auth.slice.ts';
 import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 import { useSelector } from '@/store';
 import { Label } from '@/shared/shadcnUI/label';
+import { fetchProfile, profileLoadingSelector } from '@/modules/profile/model/profile.slice.ts';
 
 
 
@@ -30,6 +31,7 @@ const CompanyRegisterSchema = Yup.object().shape({
 const CompanyRegisterForm: FC = () => {
   const dispatch = useDispatch()
   const [image, setImage] = useState('')
+  const loading = useSelector(profileLoadingSelector(fetchProfile.type))
 
   const formik = useFormik<CompanyRegisterFormValues>({
     initialValues: {
@@ -118,9 +120,9 @@ const CompanyRegisterForm: FC = () => {
                 
             <div ><img src={image} className=' max-h-[100px] max-w-[100px] mb-[20px]' /></div>
             <Button type="button" className=' bg-[#1A8AE5] hover:bg-[#0369A1]' onClick={() => {formik.handleSubmit()}}>Продолжить</Button>
-
           </div>
         </div>
+        <BackdropLoading loading={loading}/>
       </div>
     </>
   );
