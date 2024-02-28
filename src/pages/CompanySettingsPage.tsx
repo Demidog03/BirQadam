@@ -12,9 +12,6 @@ import { Label } from '@/shared/shadcnUI/label';
 import { ChangeEvent, useState } from 'react';
 
 import { Button } from '@/shared/shadcnUI/button';
-import BackdropLoading from '@/shared/ui/BackdropLoading';
-import { useSelector } from '@/store';
-import { authLoadingSelector } from '@/modules/auth/model/auth.slice';
 import { IoPersonAddSharp } from 'react-icons/io5';
 
 const onlick = () => {
@@ -60,7 +57,6 @@ const mockData = [
 
 export const CompanySettingsPage = () => {
   const [image, setImage] = useState('https://github.com/shadcn.png');
-  const loading = useSelector(authLoadingSelector);
 
   const fileHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFileList = e.target.files as FileList;
@@ -181,7 +177,6 @@ export const CompanySettingsPage = () => {
               </Button>
             </div>
           </div>
-          <BackdropLoading loading={loading} />
         </div>
       </div>
     </>
