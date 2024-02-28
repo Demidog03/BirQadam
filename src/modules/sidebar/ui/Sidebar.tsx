@@ -2,8 +2,8 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { BiSolidBriefcase, BiSolidHomeAlt2, BiSolidUser } from 'react-icons/bi';
 import usePathnameSegments from '@/shared/lib/hooks/usePathnameSegments.tsx';
 import SidebarMenuItem, { TSidebarMenuItem } from '@/modules/sidebar/ui/SidebarMenuItem.tsx';
-import {useDispatch} from "react-redux";
-import {setSidebarWidth} from "@/modules/sidebar/model/sidebar.slice.ts";
+import { useDispatch } from 'react-redux';
+import { setSidebarWidth } from '@/modules/sidebar/model/sidebar.slice.ts';
 
 const initialSidebarMenuItems: TSidebarMenuItem[] = [
   {

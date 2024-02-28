@@ -14,7 +14,7 @@ export interface Token {
 }
 
 export interface LoginPayload {
-  username: string
+  email: string
   password: string
 }
 
@@ -26,13 +26,6 @@ export interface RegisterPayload {
   lastName: string
   password: string
   repeatPassword: string
-}
-
-export interface CompanyRegisterPayload {
-  companyName: string
-  BIN: string
-  numberOfEmployees : number | string
-  companyLogo: string
 }
 
 export interface SendCodePayload {

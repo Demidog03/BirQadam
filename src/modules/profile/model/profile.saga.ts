@@ -2,9 +2,10 @@ import { fetchProfile, setProfile, setProfileLoading } from '@/modules/profile/m
 import { put, call, takeLeading } from 'redux-saga/effects'
 import { fetchProfileApi } from '@/modules/profile/api/profile.api.ts';
 import { ResponseType } from '@/shared/lib/types.ts';
-import { login } from '@/modules/auth/model/auth.slice.ts';
+import { loginAction } from '@/modules/auth/model/auth.slice.ts';
+import { setCompany } from '@/modules/company/model/company.slice.ts';
 
-function* fetchProfileSaga(action: ReturnType<typeof login>) {
+function* fetchProfileSaga(action: ReturnType<typeof loginAction>) {
   try {
     yield put(setProfileLoading({ actionType: action.type, isLoading: true }))
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -16,8 +17,17 @@ function* fetchProfileSaga(action: ReturnType<typeof login>) {
       lastName: response.data.last_name,
       birthDate: response.data.birth_date,
       jobTitle: response.data.job_title,
-      company: response.data.company
+      company: response.data.company ? {
+        ...response.data.company,
+        employeeNumbers: response.data.company.employee_numbers,
+      } : null
     }))
+    if(response.data.company) {
+      yield put(setCompany({
+        ...response.data.company,
+        employeeNumbers: response.data.company.employee_numbers,
+      }))
+    }
   }
   catch { /* empty */ }
   finally {

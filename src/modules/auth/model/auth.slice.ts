@@ -1,6 +1,5 @@
 import {
   AuthState,
-  CompanyRegisterPayload,
   LoginPayload,
   RegisterPayload,
   SendCodePayload,
@@ -69,11 +68,10 @@ const authSlice = createSlice<AuthState, Reducers<AuthState>>({
   }
 })
 
-export const login = createAction<LoginPayload>('auth/login')
-export const register = createAction<RegisterPayload>('auth/register')
-export const fetchLogout = createAction('auth/fetchLogout')
-export const companyRegister = createAction<CompanyRegisterPayload>('auth/company')
-export const sendCode = createAction<SendCodePayload>('auth/sendCode')
+export const loginAction = createAction<LoginPayload>('auth/login')
+export const registerAction = createAction<RegisterPayload>('auth/register')
+export const logoutAction = createAction('auth/logout')
+export const sendCodeAction = createAction<SendCodePayload>('auth/sendCode')
 
 export const {
   authorize,

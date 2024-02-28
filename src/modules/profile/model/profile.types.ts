@@ -1,4 +1,5 @@
 import { ActionLoading } from '@/shared/lib/types.ts';
+import { Company } from '@/modules/company/model/company.types.ts';
 
 export interface ProfileState {
   profile: Profile | null
@@ -13,11 +14,4 @@ export interface Profile {
   jobTitle: string | null
   birthDate: string | null
   company: Company | null
-}
-
-export interface Company {
-  id: number
-  name: string
-  bin: string
-  employee_numbers: number | null
 }

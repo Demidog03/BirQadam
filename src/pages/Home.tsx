@@ -2,14 +2,12 @@ import { FC } from 'react';
 import CourseDashboard from '@/modules/courses/ui/dashboard/CourseDashboard.tsx';
 import ContentWithTitleLayout from '@/shared/lib/layouts/ContentWithTitleLayout.tsx';
 import ContainerLayout from '@/shared/lib/layouts/ContainerLayout.tsx';
-import Header from '@/modules/header/ui/Header.tsx';
 import CourseRecommended from '@/modules/courses/ui/recommended/CourseRecommended.tsx';
 import ContinueLearningCourseCard from '@/modules/courses/ui/continue/ContinueLearningCourseCard.tsx';
 
 const Home: FC = () => {
   return (
     <div className="w-full bg-[#EFF3F9] h-full">
-      <Header/>
       <ContainerLayout>
         <div className="flex justify-between">
           <ContentWithTitleLayout title='Dashboard'>

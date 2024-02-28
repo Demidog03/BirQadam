@@ -3,18 +3,18 @@ import { Input } from '@/shared/shadcnUI/input.tsx';
 import { Button } from '@/shared/shadcnUI/button.tsx';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store';
-import { authLoadingSelector, authTempUserIdSelector, sendCode } from '@/modules/auth/model/auth.slice.ts';
+import { authLoadingSelector, authTempUserIdSelector, sendCodeAction } from '@/modules/auth/model/auth.slice.ts';
 import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 
 const ConfirmCodeForm: FC = () => {
   const [code, setCode] = useState<string>('')
   const dispatch = useDispatch()
   const userId = useSelector(authTempUserIdSelector)
-  const loading = useSelector(authLoadingSelector(sendCode.type))
+  const loading = useSelector(authLoadingSelector(sendCodeAction.type))
   
   const handleSendCode = () => {
     if(userId && code) {
-      dispatch(sendCode({
+      dispatch(sendCodeAction({
         code,
         userId
       }))

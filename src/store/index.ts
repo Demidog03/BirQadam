@@ -6,6 +6,7 @@ import authReducer from '../modules/auth/model/auth.slice.ts'
 import profileReducer from '../modules/profile/model/profile.slice.ts'
 import sidebarReducer from '../modules/sidebar/model/sidebar.slice.ts'
 import employeesReducer from '../modules/employees/model/employee.slice.ts'
+import companyReducer from '../modules/company/model/company.slice.ts'
 
 const sagaMiddleware = createSagaMiddleware()
 const middlewares = new MiddlewareArray(sagaMiddleware)
@@ -16,6 +17,7 @@ const store = configureStore({
     profile: profileReducer,
     sidebar: sidebarReducer,
     employees: employeesReducer,
+    company: companyReducer,
   },
   devTools: true,
   middleware: middlewares

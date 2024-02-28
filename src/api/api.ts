@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 import store from '../store'
-import { fetchLogout, tokenSelector } from '@/modules/auth/model/auth.slice.ts';
+import { logoutAction, tokenSelector } from '@/modules/auth/model/auth.slice.ts';
 import { toast } from '@/shared/shadcnUI/use-toast.tsx';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
@@ -40,7 +40,7 @@ apiWithAuthAndErrorMessaging.interceptors.response.use(undefined, async (error) 
   if (axios.isAxiosError(error)) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (error.response?.status === 401) {
-      store.dispatch(fetchLogout())
+      store.dispatch(logoutAction())
     }
     toast({
       variant: 'destructive',
@@ -58,7 +58,7 @@ api.interceptors.response.use(undefined, async (error) => {
   if (axios.isAxiosError(error)) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (error.response?.status === 401) {
-      store.dispatch(fetchLogout())
+      store.dispatch(logoutAction())
     }
     toast({
       variant: 'destructive',
