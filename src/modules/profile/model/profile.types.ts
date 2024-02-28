@@ -1,12 +1,23 @@
+import { ActionLoading } from '@/shared/lib/types.ts';
+
 export interface ProfileState {
   profile: Profile | null
-  loading: boolean
+  loading: ActionLoading[]
 }
 
 export interface Profile {
   id: number
-  username: string
+  email: string
   firstName: string
   lastName: string
-  email: string
+  jobTitle: string | null
+  birthDate: string | null
+  company: Company | null
+}
+
+export interface Company {
+  id: number
+  name: string
+  bin: string
+  employee_numbers: number | null
 }

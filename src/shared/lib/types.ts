@@ -7,6 +7,11 @@ export interface ActionError {
   message: string
 }
 
+export interface ActionLoading {
+  actionType: string
+  isLoading: boolean
+}
+
 export interface ApiError {
   message: string
 }

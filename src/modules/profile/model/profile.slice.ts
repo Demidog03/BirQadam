@@ -1,16 +1,24 @@
-import { CaseReducer, createAction, createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
+import {
+  CaseReducer,
+  createAction,
+  createSelector,
+  createSlice,
+  PayloadAction,
+  SliceCaseReducers
+} from '@reduxjs/toolkit';
 import { RootState } from '@/store';
 import { Profile, ProfileState } from '@/modules/profile/model/profile.types.ts';
+import { ActionLoading } from '@/shared/lib/types.ts';
 
 const initialState: ProfileState = {
   profile: null,
-  loading: false
+  loading: []
 }
 
 interface Reducers<State> extends SliceCaseReducers<State> {
   setProfile: CaseReducer<State, PayloadAction<Profile>>
   clearProfile: CaseReducer<State, PayloadAction>
-  setProfileLoading: CaseReducer<State, PayloadAction<boolean>>
+  setProfileLoading: CaseReducer<State, PayloadAction<ActionLoading>>
 }
 
 const profileSlice = createSlice<ProfileState, Reducers<ProfileState>>({
@@ -24,7 +32,8 @@ const profileSlice = createSlice<ProfileState, Reducers<ProfileState>>({
       state.profile = null
     },
     setProfileLoading: (state, action) => {
-      state.loading = action.payload
+      const filteredLoadingStates = [...state.loading].filter(loading => loading.actionType !== action.payload.actionType)
+      state.loading = [...filteredLoadingStates, action.payload]
     }
   }
 })
@@ -38,6 +47,9 @@ export const {
 } = profileSlice.actions
 
 export const profileSelector = (state: RootState): Profile | null => state.profile.profile
-export const profileLoadingSelector = (state: RootState): boolean => state.profile.loading
+export const profileLoadingSelector = (actionType: string) => createSelector(
+  (state: RootState) => state.profile.loading.find(loading => loading.actionType === actionType),
+  (loading) => loading?.isLoading ?? false
+);
 
 export default profileSlice.reducer
