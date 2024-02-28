@@ -1,142 +1,165 @@
+import SearchInput2 from '@/shared/ui/SearchInput2';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/shared/shadcnUI/dialog';
+import ManagerSelectionCard from '@/shared/ui/ManagerSelectionCard';
 import { Input } from '@/shared/shadcnUI/input';
 import { Label } from '@/shared/shadcnUI/label';
 import { ChangeEvent, useState } from 'react';
-import { Button } from '@/shared/shadcnUI/button';
-import { useSelector } from '@/store';
-import {
-  companySelector,
-  updateCompanyAction,
-} from '@/modules/company/model/company.slice.ts';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { toast } from '@/shared/shadcnUI/use-toast';
-import {
-  convertFileToBase64,
-  isFileTypeSupported,
-} from '@/shared/lib/utils.ts';
-import { Company } from '@/modules/company/model/company.types';
 
-const CompanySettingsSchema = Yup.object().shape({
-  name: Yup.string().required('Требуется название компании'),
-});
+import { Button } from '@/shared/shadcnUI/button';
+import { IoPersonAddSharp } from 'react-icons/io5';
+
+const onlick = () => {
+  console.log('dwws');
+};
+
+const mockData = [
+  {
+    data: [
+      'WWSfjgghg',
+      'dwadawdwqdqwdgh4545h32',
+      'https://github.com/shadcn.png',
+    ],
+    my: onlick,
+  },
+  {
+    data: [
+      'WWSfjgghg',
+      'dwadawdwqdqwdgh4545h32',
+      'https://github.com/shadcn.png',
+    ],
+    my: onlick,
+  },
+  {
+    data: [
+      'WWSfjgghg',
+      'dwadawdwqdqwdgh4545h32',
+      'https://github.com/shadcn.png',
+    ],
+    my: onlick,
+    buttonStyle: 'w-[18.6%] max-w-[96px]',
+    buttonText: 'Ghbdtn',
+  },
+  {
+    data: [
+      'WWSfjgghg',
+      'dwadawdwqdqwdgh4545h32',
+      'https://github.com/shadcn.png',
+    ],
+    my: onlick,
+  },
+];
 
 export const CompanySettingsPage = () => {
-  const [image, setImage] = useState('');
-  const company = useSelector(companySelector);
-  const dispatch = useDispatch();
-  const serverCompanyData = company as Company;
-
-  const formik = useFormik<Company>({
-    initialValues: {
-      name: serverCompanyData.name,
-      id: serverCompanyData.id,
-      bin: serverCompanyData.bin,
-      employeeNumbers: serverCompanyData.employeeNumbers,
-      logo: serverCompanyData.logo,
-    },
-    validationSchema: CompanySettingsSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      console.log(image);
-      dispatch(
-        updateCompanyAction({
-          name: values.name,
-          bin: serverCompanyData.bin,
-          employeeNumbers: serverCompanyData.employeeNumbers,
-          logo: image.split(',')[1],
-          id: serverCompanyData.id,
-        })
-      );
-    },
-  });
+  const [image, setImage] = useState('https://github.com/shadcn.png');
 
   const fileHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      toast({
-        variant: 'destructive',
-        description: 'Выберите файл для загрузки.',
-      });
-      return;
-    }
-
-    
-    if (
-      !isFileTypeSupported(file.type, ['image/png', 'image/jpeg', 'image/gif'])
-    ) {
-      toast({
-        variant: 'destructive',
-        description: 'Только следующие форматы поддерживаются: PNG, JPEG, GIF',
-      });
-      return;
-    }
-
-    convertFileToBase64(file, (result) => {
-      if ('error' in result) {
-        toast({
-          variant: 'destructive',
-          description: result.error,
-        });
-      } else {
-        console.log(result);
-        setImage(result.image);
-      }
-    });
+    const imageFileList = e.target.files as FileList;
+    const imagefile = imageFileList[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(imagefile);
+    reader.onload = () => {
+      const result = reader.result as string;
+      setImage(result);
+    };
   };
 
   return (
     <>
       <div className='flex  justify-center items-center'>
-        <div className='flex flex-col w-full min-h-screen h-full py-[50px] justify-center items-center max-w-[34rem]'>
-          <div className='flex w-[100%] mb-[12px]'>
+        <div className='flex flex-col w-full min-h-screen h-full py-[50px] justify-center items-center gap-10 max-w-[34rem]'>
+          <div className='flex w-[100%] text-[32px]'>
             <h1 className='slite-950 font-bold text-left text-[32px]/[40px]'>
               Настройки компании
             </h1>
           </div>
-          <div className='flex w-[100%] mb-[8px]'>
-            <h4 className='font-semibold leading-6 text-left'>
-              Название компании
-            </h4>
-          </div>
-          <div className='w-[100%] border-0 flex flex-col'>
-            <div className='space-y-1 mb-[20px]'>
+          <div className='flex w-[100%] justify-start items-center'>
+            <div>
+              <img src={image} className=' max-h-[70px] max-w-[75px] ' />
+            </div>
+            <div className='space-y-1 '>
+              <Label
+                className=' cursor-pointer text-[16px] text-[#0D141C] ml-[16px] font-medium'
+                htmlFor='companyLogo'
+              >
+                Сменить логотип
+              </Label>
               <Input
-                id='name'
-                defaultValue={company?.name || 'Нет названия'}
-                className=' h-[56px] text-base'
-                onChange={formik.handleChange}
+                id='companyLogo'
+                className='border-0 hidden'
+                type='file'
+                onChange={fileHandleChange}
+                accept='.png,.jpg,.jpeg,.gif'
               />
             </div>
-            {formik.errors.name && (
-              <div className='text-rose-500 ml-1 text-sm !mb-[-24px]'>
-                {formik.errors.name}
+          </div>
+          <div className='w-[100%] border-0 flex flex-col'>
+            <div className='space-y-1 mb-[10px]'>
+              <Input
+                id='companyName'
+                defaultValue={'OneStep'}
+                className=' h-[56px] text-base'
+              />
+            </div>
+
+            <div>
+              <h4 className='font-semibold leading-6 mb-[12px]'>
+                Менеджер компании
+              </h4>
+              <div className='flex justify-center flex-col '>
+                {mockData.map((info, i) => {
+                  return (
+                    <ManagerSelectionCard
+                      name={info.data[0]}
+                      avatar={info.data[2]}
+                      handleClick={info.my}
+                      key={i}
+                      buttonStyle={info.buttonStyle}
+                      buttonText={info.buttonText}
+                    />
+                  );
+                })}
               </div>
-            )}
-            <div className='flex w-[100%] justify-start items-center'>
-              <div>
-                <img
-                  src={company?.logo || image}
-                  className=' max-h-[70px] max-w-[75px] rounded-lg'
-                />
-              </div>
-              <div className='space-y-1 '>
-                <Label
-                  className=' cursor-pointer text-[16px] text-[#0D141C] ml-[16px] font-medium'
-                  htmlFor='logo'
-                >
-                  Сменить логотип
-                </Label>
-                <Input
-                  id='logo'
-                  className='border-0 hidden'
-                  type='file'
-                  onChange={(e) => {
-                    fileHandleChange(e);
-                  }}
-                  accept='.png,.jpg,.jpeg,.gif'
-                />
-              </div>
+              <Dialog>
+                <DialogTrigger className='flex items-center bg-[#E8EDF2] w-[236px] leading-5 rounded-xl h-[40px]'>
+                  <div className='w-[100%] flex items-center pl-[15px]'>
+                    <IoPersonAddSharp />
+
+                    <p className='font-bold ml-[8px]'> Назначить менеджера</p>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className='min-w-[66%] px-[10px] pb-[0px]'>
+                  <DialogHeader className='text-[24px]'>
+                    <DialogTitle className=' ml-[26px] mb-[20px] text-[24px] leading-6 text-left mt-[12px]'>
+                      Выбрать менеджера
+                    </DialogTitle>
+                    <SearchInput2 />
+                  </DialogHeader>
+                  <div>
+                    <div className='flex justify-center flex-col px-[30px]'>
+                      {mockData.map((info, i) => {
+                        if (i > 2) return;
+                        return (
+                          <ManagerSelectionCard
+                            name={info.data[0]}
+                            profession={info.data[1]}
+                            avatar={info.data[2]}
+                            handleClick={info.my}
+                            key={i}
+                            buttonStyle={info.buttonStyle}
+                            buttonText={info.buttonText}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
             <div className='flex justify-end mt-[12px]'>
               <Button
@@ -149,9 +172,6 @@ export const CompanySettingsPage = () => {
               <Button
                 type='button'
                 className=' bg-[#1A8AE5] hover:bg-[#0369A1] rounded-xl'
-                onClick={() => {
-                  formik.handleSubmit();
-                }}
               >
                 Сохранить
               </Button>
@@ -164,4 +184,3 @@ export const CompanySettingsPage = () => {
 };
 
 export default CompanySettingsPage;
-
