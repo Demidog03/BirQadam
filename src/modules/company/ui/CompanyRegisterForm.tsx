@@ -4,13 +4,13 @@ import { ChangeEvent, FC, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useDispatch } from 'react-redux';
-import { companyRegister } from '@/modules/auth/model/auth.slice.ts';
 import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 import { useSelector } from '@/store';
-import { Label } from '@/shared/shadcnUI/label';
+import { Label } from '@/shared/shadcnUI/label.tsx';
 import { fetchProfile, profileLoadingSelector } from '@/modules/profile/model/profile.slice.ts';
-
-
+import { convertFileToBase64, isFileTypeSupported } from '@/shared/lib/utils.ts';
+import { useToast } from '@/shared/shadcnUI/use-toast.tsx';
+import { createCompanyAction } from '@/modules/company/model/company.slice.ts';
 
 interface CompanyRegisterFormValues {
     companyName: string
@@ -21,15 +21,16 @@ interface CompanyRegisterFormValues {
 
 const CompanyRegisterSchema = Yup.object().shape({
   companyName: Yup.string()
-    .required('Заполните поле'),
+    .required('Требуется название компании'),
   BIN: Yup.string()
-    .required('Заполните поле'),
+    .required('Требуется БИН'),
   numberOfEmployees: Yup.number()
-    .required('Заполните поле')
+    .required('Требуется кол-во сотрудников в компании')
 })
 
 const CompanyRegisterForm: FC = () => {
   const dispatch = useDispatch()
+  const { toast } = useToast()
   const [image, setImage] = useState('')
   const loading = useSelector(profileLoadingSelector(fetchProfile.type))
 
@@ -41,26 +42,48 @@ const CompanyRegisterForm: FC = () => {
       companyLogo: ''
     },
     validationSchema: CompanyRegisterSchema,
+    validateOnChange: false,
     onSubmit: values => {
-      dispatch(companyRegister({
-        companyName: values.companyName,
-        BIN: values.BIN,
-        numberOfEmployees: values.numberOfEmployees,
-        companyLogo: values.companyLogo,
+      dispatch(createCompanyAction({
+        name: values.companyName,
+        bin: values.BIN,
+        employeeNumbers: +values.numberOfEmployees,
+        logo: values.companyLogo.split(',')[1],
       }))
     },
   })
   const fileHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const imageFileList = e.target.files as FileList;
-    const imagefile = imageFileList[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(imagefile)
-    reader.onload = () => {
-      const result = reader.result as string
-      console.log(reader.result);
-      setImage(result);
-    };
+    const file = e.target.files?.[0];
 
+    if (!file) {
+      toast({
+        variant: 'destructive',
+        description: 'Выберите файл для загрузки.',
+      });
+      return;
+    }
+
+    if (!isFileTypeSupported(file.type, ['image/png', 'image/jpeg', 'image/gif'])) {
+      toast({
+        variant: 'destructive',
+        description:
+          'Только следующие форматы поддерживаются: PNG, JPEG, GIF',
+      });
+      return;
+    }
+
+    convertFileToBase64(file, (result => {
+      if ('error' in result) {
+        toast({
+          variant: 'destructive',
+          description: result.error,
+        });
+      }
+      else {
+        console.log(result)
+        setImage(result.image);
+      }
+    }))
   }
   return (
     <>
@@ -114,7 +137,7 @@ const CompanyRegisterForm: FC = () => {
                 onChange={fileHandleChange}
                 value={formik.values.companyLogo}
                 accept=".png,.jpg,.jpeg,.gif"
-                
+
               />
             </div>
                 

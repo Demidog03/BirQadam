@@ -1,9 +1,9 @@
 import {
   authorize,
   clearTokens,
-  fetchLogout,
-  login,
-  register, sendCode,
+  logoutAction,
+  loginAction,
+  registerAction, sendCodeAction,
   setAuthLoading, setRegisterStep, setTempUserId
 } from '@/modules/auth/model/auth.slice.ts';
 import { put, call, takeLeading } from 'redux-saga/effects'
@@ -12,7 +12,7 @@ import { loginApi, registerApi, sendCodeApi } from '@/modules/auth/api/auth.api.
 import { toast } from '@/shared/shadcnUI/use-toast.tsx';
 import { clearProfile } from '@/modules/profile/model/profile.slice.ts';
 
-function* loginSaga(action: ReturnType<typeof login>) {
+function* loginSaga(action: ReturnType<typeof loginAction>) {
   try {
     yield put(setAuthLoading({ actionType: action.type, isLoading: true }))
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -38,7 +38,7 @@ function* loginSaga(action: ReturnType<typeof login>) {
   }
 }
 
-function* registerSaga(action: ReturnType<typeof register>) {
+function* registerSaga(action: ReturnType<typeof registerAction>) {
   try {
     yield put(setAuthLoading({ actionType: action.type, isLoading: true }))
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -64,7 +64,7 @@ function* registerSaga(action: ReturnType<typeof register>) {
   }
 }
 
-function* sendCodeSaga(action: ReturnType<typeof sendCode>) {
+function* sendCodeSaga(action: ReturnType<typeof sendCodeAction>) {
   try {
     yield put(setAuthLoading({ actionType: action.type, isLoading: true }))
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -105,8 +105,8 @@ function* fetchLogoutSaga() {
 }
 
 export function* authSaga() {
-  yield takeLeading(login.type, loginSaga)
-  yield takeLeading(register.type, registerSaga)
-  yield takeLeading(fetchLogout.type, fetchLogoutSaga)
-  yield takeLeading(sendCode.type, sendCodeSaga)
+  yield takeLeading(loginAction.type, loginSaga)
+  yield takeLeading(registerAction.type, registerSaga)
+  yield takeLeading(logoutAction.type, fetchLogoutSaga)
+  yield takeLeading(sendCodeAction.type, sendCodeSaga)
 }

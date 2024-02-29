@@ -12,36 +12,37 @@ import { FC } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { authLoadingSelector, login } from '@/modules/auth/model/auth.slice.ts';
+import { authLoadingSelector, loginAction } from '@/modules/auth/model/auth.slice.ts';
 import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 import { useSelector } from '@/store';
 import { useNavigate } from 'react-router-dom';
 
 interface SigninValues {
-  username: string;
+  email: string;
   password: string;
 }
 
 const SigninValueSchema = Yup.object().shape({
-  username: Yup.string().required('Username required'),
+  email: Yup.string().required('Username required'),
   password: Yup.string().required('Password required'),
 });
 
 const SigninForm: FC = () => {
   const dispatch = useDispatch();
-  const loading = useSelector(authLoadingSelector(login.type));
+  const loading = useSelector(authLoadingSelector(loginAction.type));
   const navigate = useNavigate()
 
   const formik = useFormik<SigninValues>({
     initialValues: {
-      username: '',
+      email: '',
       password: '',
     },
     validationSchema: SigninValueSchema,
     onSubmit: (values) => {
+      console.log('fsfs')
       dispatch(
-        login({
-          username: values.username,
+        loginAction({
+          email: values.email,
           password: values.password,
         })
       );
@@ -58,17 +59,17 @@ const SigninForm: FC = () => {
         </CardHeader>
         <CardContent className="space-y-2">
           <div className="space-y-1">
-            <Label htmlFor="username">Email or username</Label>
+            <Label htmlFor="email">Email or username</Label>
             <Input
               className="placeholder:text-[#4f7596] border-[#d1dbe8]"
-              id="username"
+              id="email"
               placeholder="Enter email or username"
               onChange={formik.handleChange}
-              value={formik.values.username}
+              value={formik.values.email}
             />
-            {formik.errors.username && (
+            {formik.errors.email && (
               <div className="text-red-900 text-sm">
-                {formik.errors.username}
+                {formik.errors.email}
               </div>
             )}
           </div>

@@ -13,14 +13,14 @@ import { useSelector } from '@/store';
 import { profileSelector } from '@/modules/profile/model/profile.slice.ts';
 import { BiLogOutCircle, BiSolidUserCircle } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
-import { fetchLogout } from '@/modules/auth/model/auth.slice.ts';
+import { logoutAction } from '@/modules/auth/model/auth.slice.ts';
 
 const ProfileMenu: FC = () => {
   const profile = useSelector(profileSelector)
   const dispatch = useDispatch()
   
   const handleLogout = () => {
-    dispatch(fetchLogout())
+    dispatch(logoutAction())
   }
   
   return (

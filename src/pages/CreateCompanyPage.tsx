@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import CompanyRegisterForm from '@/modules/auth/ui/CompanyRegisterForm.tsx';
+import CompanyRegisterForm from '@/modules/company/ui/CompanyRegisterForm.tsx';
 
 const CreateCompanyPage: FC = () => {
   return (

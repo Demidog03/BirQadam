@@ -13,6 +13,8 @@ import { ChangeEvent, useState } from 'react';
 
 import { Button } from '@/shared/shadcnUI/button';
 import { IoPersonAddSharp } from 'react-icons/io5';
+import { useSelector } from '@/store';
+import { companySelector } from '@/modules/company/model/company.slice.ts';
 
 const onlick = () => {
   console.log('dwws');
@@ -57,6 +59,7 @@ const mockData = [
 
 export const CompanySettingsPage = () => {
   const [image, setImage] = useState('https://github.com/shadcn.png');
+  const company = useSelector(companySelector);
 
   const fileHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFileList = e.target.files as FileList;
@@ -102,7 +105,7 @@ export const CompanySettingsPage = () => {
             <div className='space-y-1 mb-[10px]'>
               <Input
                 id='companyName'
-                defaultValue={'OneStep'}
+                value={company?.name || 'Нет названия'}
                 className=' h-[56px] text-base'
               />
             </div>

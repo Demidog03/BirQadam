@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { authLoadingSelector, register } from '@/modules/auth/model/auth.slice.ts';
+import { authLoadingSelector, registerAction } from '@/modules/auth/model/auth.slice.ts';
 import { useDispatch } from 'react-redux';
 import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 import { useSelector } from '@/store';
@@ -53,7 +53,7 @@ const RegisterValueSchema = Yup.object().shape({
 
 const RegisterForm: FC = () => {
   const dispatch = useDispatch()
-  const loading = useSelector(authLoadingSelector(register.type))
+  const loading = useSelector(authLoadingSelector(registerAction.type))
   const [termsAccepted, setTermsAccepted] = useState(false)
   const navigate = useNavigate()
 
@@ -72,7 +72,7 @@ const RegisterForm: FC = () => {
     validationSchema: RegisterValueSchema,
     onSubmit: values => {
       console.log(values)
-      termsAccepted && values.dateOfBirth && dispatch(register({
+      termsAccepted && values.dateOfBirth && dispatch(registerAction({
         firstName: values.firstName,
         lastName: values.lastName,
         post: values.post,
@@ -132,6 +132,7 @@ const RegisterForm: FC = () => {
           )}
           <Input
             id="password"
+            type="password"
             onChange={formik.handleChange}
             value={formik.values.password}
             placeholder="Пароль"
@@ -142,6 +143,7 @@ const RegisterForm: FC = () => {
           )}
           <Input
             id="repeatPassword"
+            type="password"
             onChange={formik.handleChange}
             value={formik.values.repeatPassword}
             placeholder="Повторите пароль"
