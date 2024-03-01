@@ -4,10 +4,12 @@ import { SidebarState } from '@/modules/sidebar/model/sidebar.types.ts';
 
 const initialState: SidebarState = {
   width: null,
+  isOpen: true,
 }
 
 interface Reducers<State> extends SliceCaseReducers<State> {
   setSidebarWidth: CaseReducer<State, PayloadAction<number>>
+  setSidebarOpenState: CaseReducer<State, PayloadAction<boolean>>
 }
 
 const sidebarSlice = createSlice<SidebarState, Reducers<SidebarState>>({
@@ -16,6 +18,9 @@ const sidebarSlice = createSlice<SidebarState, Reducers<SidebarState>>({
   reducers: {
     setSidebarWidth: (state, action) => {
       state.width = action.payload
+    },
+    setSidebarOpenState: (state, action) => {
+      state.isOpen = action.payload
     }
   }
 })
@@ -23,7 +28,8 @@ const sidebarSlice = createSlice<SidebarState, Reducers<SidebarState>>({
 export const fetchProfile = createAction('profile/fetchProfile')
 
 export const {
-  setSidebarWidth
+  setSidebarWidth,
+  setSidebarOpenState
 } = sidebarSlice.actions
 
 export const sidebarSelector = (state: RootState): SidebarState | null => state.sidebar

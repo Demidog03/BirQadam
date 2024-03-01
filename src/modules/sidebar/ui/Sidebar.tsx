@@ -1,9 +1,9 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { MdDashboard } from 'react-icons/md';
 import usePathnameSegments from '@/shared/lib/hooks/usePathnameSegments.tsx';
 import SidebarMenuItem, { TSidebarMenuItem } from '@/modules/sidebar/ui/SidebarMenuItem.tsx';
 import { useDispatch } from 'react-redux';
-import { setSidebarWidth, sidebarSelector } from '@/modules/sidebar/model/sidebar.slice.ts';
+import { setSidebarOpenState, sidebarSelector } from '@/modules/sidebar/model/sidebar.slice.ts';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/shared/shadcnUI/accordion';
 import SidebarCompanyLogo from './SidebarCompanyLogo';
 import { useSelector } from '@/store';
@@ -40,7 +40,6 @@ const initialSidebarMenuItems: TSidebarMenuItem[] = [
 const Sidebar = memo(() => {
   {
     const dispatch = useDispatch()
-    const sidebarRef = useRef<HTMLDivElement | null>(null)
     const pathnameSegments = usePathnameSegments();
     const [sidebarMenuItems, setSidebarMenuItems] = useState<TSidebarMenuItem[]>(initialSidebarMenuItems);
     const company = useSelector(companySelector);
@@ -48,9 +47,7 @@ const Sidebar = memo(() => {
     const sidebar = useSelector(sidebarSelector);
 
     const handleClick = () => {
-      if (sidebar?.width) {
-        dispatch(setSidebarWidth(sidebar.width <= 80 ? 260 : 80))
-      }
+      dispatch(setSidebarOpenState(sidebar?.isOpen ? false : true))
     }
 
     useEffect(() => {
@@ -61,14 +58,8 @@ const Sidebar = memo(() => {
       setSidebarMenuItems(updatedItems);
     }, [pathnameSegments]);
 
-    useEffect(() => {
-      if (sidebarRef.current?.clientWidth) {
-        dispatch(setSidebarWidth(sidebarRef.current.clientWidth))
-      }
-    }, [dispatch, sidebarRef]);
-
     return (
-      <Accordion ref={sidebarRef} type="single" collapsible defaultValue="item-1" className='relative'>
+      <Accordion type="single" collapsible defaultValue="item-1" className='relative'>
         <AccordionItem value="item-1" className='flex flex-col min-w-[80px] max-w-[260px] pl-4 pr-4 pt-[20px] pb-[34px] gap-6 shadow-[3px_0px_40px_0px_rgba(87,156,216,0.10)] z-10'>
           <div className='flex mb-8 cursor-default'>
             <SidebarCompanyLogo imageSrc={company?.logo ? company.logo : ''}/>
