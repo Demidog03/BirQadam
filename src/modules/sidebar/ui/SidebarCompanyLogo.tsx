@@ -7,7 +7,7 @@ interface CompanyLogoInterface {
 
 const SidebarCompanyLogo: FC<CompanyLogoInterface> = ({ imageSrc }) => {
   return (
-    <div className="w-[40px] h-[40px]">
+    <div className="w-[40px] h-[40px] mb-1">
       <AvatarIcon className='w-full h-full'>
         <AvatarImage src={imageSrc} alt="company logo"/>
         <AvatarFallback className='bg-sky-700 text-[#ffffff]'>Logo</AvatarFallback>
