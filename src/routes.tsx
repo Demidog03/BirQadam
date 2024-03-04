@@ -1,5 +1,12 @@
-import { type RouteObject } from 'react-router-dom'
-import { CompanySettingsPage, CreateCompanyPage, EmployeesPage, HomePage, LoginPage, RegisterPage } from '@/lazyPages.tsx'
+import { type RouteObject } from 'react-router-dom';
+import {
+  CompanySettingsPage,
+  CreateCompanyPage,
+  EmployeesPage,
+  HomePage,
+  LoginPage,
+  RegisterPage,
+} from '@/lazyPages.tsx';
 import MainLayout from '@/shared/lib/layouts/MainLayout.tsx';
 import RedirectPage from '@/pages/RedirectPage.tsx';
 import { AuthPageGuard } from '@/modules/guards/AuthPageGuard.tsx';
@@ -12,63 +19,61 @@ export const router: RouteObject[] = [
     element: (
       <AuthPageGuard>
         <MainLayout>
-          <HomePage/>
+          <HomePage />
         </MainLayout>
       </AuthPageGuard>
     ),
   },
   {
     path: '/',
-    element: (
-      <RedirectPage path="/home"/>
-    )
+    element: <RedirectPage path='/home' />,
   },
   {
     path: '/login',
     element: (
       <UserPageGuard>
-        <LoginPage/>
+        <LoginPage />
       </UserPageGuard>
-    )
+    ),
   },
   {
     path: '/register',
     element: (
       <UserPageGuard>
-        <RegisterPage/>
+        <RegisterPage />
       </UserPageGuard>
-    )
+    ),
   },
   {
     path: '/createCompany',
     element: (
       <AuthPageGuard>
-        <CreateCompanyPage/>
+        <CreateCompanyPage />
       </AuthPageGuard>
-    )
+    ),
   },
   {
-    path: '/company',
+    path: '/updateCompany',
     element: (
       <AuthPageGuard>
-        <CompanySettingsPage/>
+        <CompanySettingsPage />
       </AuthPageGuard>
-    )
+    ),
   },
   {
     path: '/profiles',
     element: (
       <AuthPageGuard>
-        <ProfilePage/>
+        <ProfilePage />
       </AuthPageGuard>
-    )
+    ),
   },
   {
     path: '/employees',
     element: (
       <AuthPageGuard>
-        <EmployeesPage/>
+        <EmployeesPage />
       </AuthPageGuard>
-    )
-  }
-]
+    ),
+  },
+];
