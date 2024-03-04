@@ -1,22 +1,14 @@
 export interface CreateCompanyBody {
-  name: string;
-  bin: string;
-  employee_numbers: number;
-  logo: string;
+  name: string
+  bin: string
+  employee_numbers: number
+  logo: string
 }
 
 export interface CreateCompanyResponse {
-  id: number;
-  name: string;
-  bin: string;
-  employee_numbers: number;
-  logo: string;
-}
-
-export interface updateCompanyBody {
-  id: number;
-  name: string;
-  bin: string;
-  employee_numbers: number;
-  logo: string;
+  id: number
+  name: string
+  bin: string
+  employee_numbers: number
+  logo: string
 }
