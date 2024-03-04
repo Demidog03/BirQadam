@@ -61,7 +61,6 @@ export const CompanySettingsPage = () => {
       return;
     }
 
-    
     if (
       !isFileTypeSupported(file.type, ['image/png', 'image/jpeg', 'image/gif'])
     ) {
