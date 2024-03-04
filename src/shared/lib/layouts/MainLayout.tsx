@@ -10,7 +10,7 @@ const MainLayout: FC<{children: ReactNode}> = ({ children }) => {
   return (
     <div className="flex w-full min-h-screen h-full pr-[0.5rem]">
       <Sidebar/>
-      <div style={{ width: `calc(100% - ${sidebar?.width || 0}px)` }} >
+      <div style={{ width: `calc(100% - ${sidebar?.isOpen ? 260 : 80}px)`, transition: 'ease-out 0.2s' }} >
         <Navbar/>
         {children}
       </div>

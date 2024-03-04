@@ -72,8 +72,30 @@ export const router: RouteObject[] = [
     path: '/employees',
     element: (
       <AuthPageGuard>
-        <EmployeesPage />
+        <MainLayout>
+          <EmployeesPage/>
+        </MainLayout>
+      </AuthPageGuard>
+    )
+  },
+  {
+    path: '/teams',
+    element: (
+      <AuthPageGuard>
+        <MainLayout>
+          <h1>Teams</h1>
+        </MainLayout>
       </AuthPageGuard>
     ),
   },
-];
+  {
+    path: '/courses',
+    element: (
+      <AuthPageGuard>
+        <MainLayout>
+          <h1>Courses</h1>
+        </MainLayout>
+      </AuthPageGuard>
+    ),
+  },
+]
