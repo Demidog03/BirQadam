@@ -47,8 +47,8 @@ export const TeamsCards = () => {
           manager="Отеп Олжас"
           numberEmployees={13}
         />
-        <div className="rounded-[10px] h-full flex flex-col justify-between border-spacing-1 border-gray-100 border-[1px] p-4 bg-white w-full">
-          <Button variant="outline">Создать команду</Button>
+        <div className="rounded-[10px] self-center border-spacing-1 border-gray-100 border-[1px] p-4 bg-white w-full">
+          <Button variant="outline" className="w-full">Создать команду</Button>
         </div>
       </div>
 
