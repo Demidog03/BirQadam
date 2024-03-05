@@ -1,4 +1,5 @@
 import { TeamCard } from './TeamCard';
+import { Button } from '@/shared/shadcnUI/button.tsx';
 
 
 export const TeamsCards = () => {
@@ -9,7 +10,7 @@ export const TeamsCards = () => {
         One step-<span className=' font-bold'>команды</span>
       </h1>
 
-      <div className='grid gap-x-32 gap-y-4 grid-cols-3 max-lg:grid-cols-2 max-sm:block  justify-items-center'>
+      <div className='grid gap-x-2 gap-y-4 grid-cols-[repeat(auto-fill,_minmax(250px,_auto))] justify-items-center'>
         <TeamCard
           image="https://kinsta.com/wp-content/uploads/2021/09/front-end-developer-salary.jpg"
           category="Frontend"
@@ -46,6 +47,9 @@ export const TeamsCards = () => {
           manager="Отеп Олжас"
           numberEmployees={13}
         />
+        <div className="rounded-[10px] h-full flex flex-col justify-between border-spacing-1 border-gray-100 border-[1px] p-4 bg-white w-full">
+          <Button variant="outline">Создать команду</Button>
+        </div>
       </div>
 
     </div>
