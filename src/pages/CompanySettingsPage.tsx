@@ -145,6 +145,7 @@ export const CompanySettingsPage = () => {
                 variant='secondary'
                 onClick={ () => { formik.resetForm({ values: formik.initialValues }); setImage('')}}
               >
+                
                 Отменить
               </Button>
               <Button
