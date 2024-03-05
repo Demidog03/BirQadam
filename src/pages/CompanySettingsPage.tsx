@@ -102,9 +102,9 @@ export const CompanySettingsPage = () => {
             <div className='space-y-1 mb-[20px]'>
               <Input
                 id='name'
-                defaultValue={company?.name || 'Нет названия'}
                 className=' h-[56px] text-base'
                 onChange={formik.handleChange}
+                value={formik.values.name}
               />
             </div>
             {formik.errors.name && (
@@ -134,14 +134,16 @@ export const CompanySettingsPage = () => {
                     fileHandleChange(e);
                   }}
                   accept='.png,.jpg,.jpeg,.gif'
+                  value={formik.values.logo}
                 />
               </div>
             </div>
             <div className='flex justify-end mt-[12px]'>
               <Button
-                type='button'
+                type='reset'
                 className='hover:bg-[#C0C0C0] mr-[10px] rounded-xl'
                 variant='secondary'
+                onClick={ () => { formik.resetForm({ values: formik.initialValues }); setImage('')}}
               >
                 Отменить
               </Button>

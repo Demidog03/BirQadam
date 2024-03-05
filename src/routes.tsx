@@ -101,4 +101,12 @@ export const router: RouteObject[] = [
       </AuthPageGuard>
     ),
   },
+  {
+    path: '/updateCompany',
+    element: (
+      <AuthPageGuard>
+        <CompanySettingsPage/>
+      </AuthPageGuard>
+    ),
+  },
 ]
