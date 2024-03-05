@@ -5,8 +5,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuGroup,
   DropdownMenuContent
-} from '@/shared/shadcnUI/dropdown';
-import { DropdownMenu } from '@/shared/shadcnUI/dropdown';
+} from '@/shared/shadcnUI/dropdown.tsx';
+import { DropdownMenu } from '@/shared/shadcnUI/dropdown.tsx';
 import { FC } from 'react';
 import Avatar from '@/modules/profile/ui/Avatar.tsx';
 import { useSelector } from '@/store';
@@ -31,7 +31,7 @@ const ProfileMenu: FC = () => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>{profile?.username}</DropdownMenuLabel>
+        <DropdownMenuLabel>{profile?.firstName}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem className="flex gap-1">

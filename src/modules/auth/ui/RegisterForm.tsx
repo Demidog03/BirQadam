@@ -100,10 +100,9 @@ const RegisterForm: FC = () => {
   return (
     <>
       <div className='flex flex-col gap-5 items-center'>
-        <h1 className='text-center text-3xl font-bold'>Создать команду</h1>
+        <h1 className='text-center text-3xl font-bold'>Регистрация представителя</h1>
         <h2 className='text-center max-w-[550px]'>
-          Создайте команду вашей компании, чтобы получить доступ к инструментам
-          создания курсов и отслеживать прогресс всей группы.
+          Зарегистрируйтесь как представитель компании, чтобы получить доступ к инструментам платформы "OneStep"
         </h2>
         <div className='flex flex-col gap-3 max-w-[480px] w-full'>
           <Input

@@ -6,6 +6,7 @@ import {
   HomePage,
   LoginPage,
   RegisterPage,
+  TeamsPage,
 } from '@/lazyPages.tsx';
 import MainLayout from '@/shared/lib/layouts/MainLayout.tsx';
 import RedirectPage from '@/pages/RedirectPage.tsx';
@@ -53,10 +54,12 @@ export const router: RouteObject[] = [
     ),
   },
   {
-    path: '/updateCompany',
+    path: '/company',
     element: (
       <AuthPageGuard>
-        <CompanySettingsPage />
+        <MainLayout>
+          <CompanySettingsPage />
+        </MainLayout>
       </AuthPageGuard>
     ),
   },
@@ -83,7 +86,7 @@ export const router: RouteObject[] = [
     element: (
       <AuthPageGuard>
         <MainLayout>
-          <h1>Teams</h1>
+          <TeamsPage/>
         </MainLayout>
       </AuthPageGuard>
     ),

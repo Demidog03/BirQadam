@@ -71,8 +71,8 @@ export const CompanySettingsPage = () => {
 
   return (
     <>
-      <div className='flex  justify-center items-center'>
-        <div className='flex flex-col w-full min-h-screen h-full py-[50px] justify-center items-center gap-10 max-w-[34rem]'>
+      <div className='flex justify-center items-center'>
+        <div className='flex flex-col w-full py-[50px] justify-center items-center gap-10'>
           <div className='flex w-[100%] text-[32px]'>
             <h1 className='slite-950 font-bold text-left text-[32px]/[40px]'>
               Настройки компании

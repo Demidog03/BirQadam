@@ -37,3 +37,8 @@ export const convertFileToBase64 = (
 export const isFileTypeSupported = (fileType: string, supportedTypes: string[]): boolean => {
   return supportedTypes.includes(fileType);
 };
+
+export const getAltFromImageSrc = (image: string): string => {
+  const text = image.split('/')
+  return text[text.length - 1].slice(0, text[text.length - 1].indexOf('.'))
+}

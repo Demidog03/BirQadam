@@ -3,7 +3,7 @@ import { TeamCard } from './TeamCard';
 
 export const TeamsCards = () => {
   return (
-    <div className='mx-auto max-w-5xl'>
+    <div className='mx-auto'>
 
       <h1 className=' text-3xl font-black p-4'>
         One step-<span className=' font-bold'>команды</span>

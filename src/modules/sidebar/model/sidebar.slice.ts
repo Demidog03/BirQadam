@@ -1,4 +1,4 @@
-import { CaseReducer, createAction, createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
+import { CaseReducer, createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
 import { RootState } from '@/store';
 import { SidebarState } from '@/modules/sidebar/model/sidebar.types.ts';
 
@@ -25,13 +25,11 @@ const sidebarSlice = createSlice<SidebarState, Reducers<SidebarState>>({
   }
 })
 
-export const fetchProfile = createAction('profile/fetchProfile')
-
 export const {
   setSidebarWidth,
   setSidebarOpenState
 } = sidebarSlice.actions
 
-export const sidebarSelector = (state: RootState): SidebarState | null => state.sidebar
+export const sidebarSelector = (state: RootState): SidebarState => state.sidebar
 
 export default sidebarSlice.reducer

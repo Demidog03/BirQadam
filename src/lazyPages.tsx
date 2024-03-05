@@ -7,3 +7,4 @@ export const RegisterPage = Loadable(lazy(async () => await import('./pages/Regi
 export const EmployeesPage = Loadable(lazy(async () => await import('./pages/EmployeesPage.tsx')))
 export const CreateCompanyPage = Loadable(lazy(async () => await import('./pages/CreateCompanyPage.tsx')))
 export const CompanySettingsPage = Loadable(lazy(async () => await import('./pages/CompanySettingsPage.tsx')))
+export const TeamsPage = Loadable(lazy(async () => await import('./pages/TeamsPage.tsx')))

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/shadcnUI/tabs.tsx';
 import RegisterForm from '@/modules/auth/ui/RegisterForm.tsx';
-import MyLearningPathTab from "@/modules/employeeProfile/ui/MyLearningPathTab.tsx";
+import MyLearningPathTab from "@/modules/employees/ui/profile/MyLearningPathTab.tsx";
 
 const learningPathData = [
     {

@@ -15,7 +15,7 @@ const SidebarMenuItem: FC<TSidebarMenuItem> = ({ isActive, text, icon, routeName
     <div className="flex gap-2 items-center">
       {isActive && <div className="w-[2.2px] bg-sky-600 h-[20px] rounded-[10px]"></div>}
       <Button
-        className={`${isActive ? 'bg-sky-600 bg-opacity-10 text-sky-700' : 'bg-transparent text-[#5D7285]'} w-full justify-start gap-3 text-lg font-semibold hover:bg-sky-600 hover:bg-opacity-5 rounded-[10px] pl-1 pr-2 `}
+        className={`${isActive ? 'bg-sky-600 bg-opacity-5 text-sky-700' : 'bg-transparent text-[#5D7285]'} justify-start gap-2 text-lg font-semibold hover:bg-sky-600 hover:bg-opacity-10 rounded-[10px] pl-2 pr-2 `}
         onClick={() => { navigate('/' + routeName); }}
       >
         {icon} {text}

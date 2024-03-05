@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import HelpIcon from './HelpIcon';
-import ProfileMenu from '@/modules/header/ui/ProfileMenu.tsx';
+import ProfileMenu from '@/modules/profile/ui/ProfileMenu.tsx';
 
 const Menu: FC = () => {
   return (
