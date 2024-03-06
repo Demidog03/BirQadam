@@ -91,7 +91,10 @@ export const authLoadingSelector = (actionType: string) => createSelector(
   (loading) => loading?.isLoading ?? false
 );
 
-export const authErrorsSelector = (state: RootState): ActionError[] => state.auth.errors
+export const authErrorsSelector = (actionType: string) => createSelector(
+  (state: RootState) => state.auth.errors.find(error => error.actionType === actionType),
+  (error) => error?.message || null
+)
 export const authRegisterStepSelector = (state: RootState): 0 | 1 => state.auth.registerStep
 export const authTempUserIdSelector = (state: RootState): number | null => state.auth.tempUserId
 

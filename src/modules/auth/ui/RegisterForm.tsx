@@ -1,26 +1,18 @@
 import { FC, useState } from 'react';
 import * as Yup from 'yup';
-import { useFormik } from 'formik';
 import {
   authLoadingSelector,
   registerAction,
 } from '@/modules/auth/model/auth.slice.ts';
 import { useDispatch } from 'react-redux';
-import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 import { useSelector } from '@/store';
-import { Input } from '@/shared/shadcnUI/input.tsx';
-import { Checkbox } from '@/shared/shadcnUI/checkbox.tsx';
-import { Button } from '@/shared/shadcnUI/button.tsx';
 import { useNavigate } from 'react-router-dom';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/shared/shadcnUI/popover.tsx';
-import { cn } from '@/shared/lib/utils.ts';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { Calendar } from '@/shared/shadcnUI/calendar.tsx';
+import styled from 'styled-components';
+import { Button, DatePicker, Flex, Form, Input, Typography } from 'antd';
+import { COLORS } from '@/shared/lib/constants.ts';
+import { BsEnvelopeAtFill } from 'react-icons/bs';
+import { BiSolidBriefcase, BiSolidLock, BiSolidUserDetail } from 'react-icons/bi';
+import dayjs from 'dayjs'
 
 interface RegisterValues {
   firstName: string;
@@ -60,187 +52,129 @@ const RegisterValueSchema = Yup.object().shape({
   dateOfBirth: Yup.string().required('Требуется дата рождения'),
 });
 
+const FormStyle = styled(Form)`
+  max-width: 700px;
+  width: 100%;
+  background-color: #F7FAFC;
+  padding: 40px;
+  border-radius: 12px;
+`
+const FormItemStyle = styled(Form.Item<RegisterValues>)`
+  width: 100%;
+`
+const TitleStyle = styled(Typography)`
+  font-size: 2rem;
+  font-weight: 600;
+  color: ${COLORS.PRIMARY[7]};
+  line-height: 110%;
+  margin-bottom: 10px;
+`
+const SubTitleStyle = styled(Typography)`
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin-bottom: 30px;
+  line-height: 110%;
+  text-align: center;
+`
+
 const RegisterForm: FC = () => {
   const dispatch = useDispatch();
   const loading = useSelector(authLoadingSelector(registerAction.type));
   const [termsAccepted, setTermsAccepted] = useState(false);
   const navigate = useNavigate();
 
-  const formik = useFormik<RegisterValues>({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      post: '',
-      email: '',
-      dateOfBirth: undefined,
-      password: '',
-      repeatPassword: '',
-    },
-    validateOnChange: false,
-    validateOnBlur: false,
-    validationSchema: RegisterValueSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      termsAccepted &&
-        values.dateOfBirth &&
-        dispatch(
-          registerAction({
-            firstName: values.firstName,
-            lastName: values.lastName,
-            post: values.post,
-            email: values.email,
-            dateOfBirth: values.dateOfBirth.toISOString(),
-            password: values.password,
-            repeatPassword: values.repeatPassword,
-          })
-        );
-    },
-  });
+  const onFinish = (values: RegisterValues) => {
+    const formattedDateOfBirth = dayjs(values.dateOfBirth).toISOString()
+    const formattedValues = {
+      ...values,
+      dateOfBirth: formattedDateOfBirth
+    };
+    dispatch(registerAction({
+      ...formattedValues
+    }))
+  };
+  const ButtonStyle = styled(Button)`
+  & span {
+    font-weight: 500;
+  };
+  margin-bottom: 5px;
+`
 
   return (
     <>
-      <div className='flex flex-col gap-5 items-center'>
-        <h1 className='text-center text-3xl font-bold'>Регистрация представителя</h1>
-        <h2 className='text-center max-w-[550px]'>
-          Зарегистрируйтесь как представитель компании, чтобы получить доступ к инструментам платформы "OneStep"
-        </h2>
-        <div className='flex flex-col gap-3 max-w-[480px] w-full'>
-          <Input
-            id='firstName'
-            onChange={formik.handleChange}
-            value={formik.values.firstName}
-            placeholder='Имя'
-            className='bg-[#4F7596] bg-opacity-10 placeholder:text-[#4F7596] px-4 py-3 text-[16px] rounded-xl'
-          />
-          {formik.errors.firstName && (
-            <div className='text-red-900 text-sm'>
-              {formik.errors.firstName}
-            </div>
-          )}
-          <Input
-            id='lastName'
-            onChange={formik.handleChange}
-            value={formik.values.lastName}
-            placeholder='Фамилия'
-            className='bg-[#4F7596] bg-opacity-10 placeholder:text-[#4F7596] px-4 py-3 text-[16px] rounded-xl'
-          />
-          {formik.errors.lastName && (
-            <div className='text-red-900 text-sm'>{formik.errors.lastName}</div>
-          )}
-          <Input
-            id='email'
-            onChange={formik.handleChange}
-            value={formik.values.email}
-            placeholder='E-mail'
-            className='bg-[#4F7596] bg-opacity-10 placeholder:text-[#4F7596] px-4 py-3 text-[16px] rounded-xl'
-          />
-          {formik.errors.email && (
-            <div className='text-red-900 text-sm'>{formik.errors.email}</div>
-          )}
-          <Input
-            id='post'
-            onChange={formik.handleChange}
-            value={formik.values.post}
-            placeholder='Должность'
-            className='bg-[#4F7596] bg-opacity-10 placeholder:text-[#4F7596] px-4 py-3 text-[16px] rounded-xl'
-          />
-          {formik.errors.post && (
-            <div className='text-red-900 text-sm'>{formik.errors.post}</div>
-          )}
-          <Input
-            id='password'
-            type='password'
-            onChange={formik.handleChange}
-            value={formik.values.password}
-            placeholder='Пароль'
-            className='bg-[#4F7596] bg-opacity-10 placeholder:text-[#4F7596] px-4 py-3 text-[16px] rounded-xl'
-          />
-          {formik.errors.password && (
-            <div className='text-red-900 text-sm'>{formik.errors.password}</div>
-          )}
-          <Input
-            id='repeatPassword'
-            type='password'
-            onChange={formik.handleChange}
-            value={formik.values.repeatPassword}
-            placeholder='Повторите пароль'
-            className='bg-[#4F7596] bg-opacity-10 placeholder:text-[#4F7596] px-4 py-3 text-[16px] rounded-xl'
-          />
-          {formik.errors.repeatPassword && (
-            <div className='text-red-900 text-sm'>
-              {formik.errors.repeatPassword}
-            </div>
-          )}
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={'outline'}
-                className={cn(
-                  'w-[280px] justify-start text-left font-normal',
-                  !formik.values.dateOfBirth && 'text-muted-foreground'
-                )}
-              >
-                <CalendarIcon className='mr-2 h-4 w-4' />
-                {formik.values.dateOfBirth ? (
-                  format(formik.values.dateOfBirth, 'PPP')
-                ) : (
-                  <span>Pick a date</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className='w-auto p-0'>
-              <Calendar
-                id='dateOfBirth'
-                mode='single'
-                selected={formik.values.dateOfBirth}
-                onSelect={async (selectedDate) => {
-                  await formik.setFieldValue('dateOfBirth', selectedDate);
-                }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-          {formik.errors.dateOfBirth && (
-            <div className='text-red-900 text-sm'>
-              {formik.errors.dateOfBirth}
-            </div>
-          )}
-        </div>
-        <div className='flex gap-3 max-w-[650px]'>
-          <Checkbox
-            id='terms'
-            className='mt-1 border-[#ADC4D6]'
-            onCheckedChange={(checked) => {
-              setTermsAccepted(typeof checked === 'boolean' ? checked : false);
-            }}
-          />
-          <label htmlFor='terms' className='cursor-pointer'>
-            Нажимая «Создать учетную запись», вы соглашаетесь с нашими Условиями
-            обслуживания и Политикой конфиденциальности, а также подтверждаете,
-            что прочитали нашу Политику использования данных.
-          </label>
-        </div>
-        <div className='flex flex-col align-center max-w-[480px] w-full'>
-          <Button
-            disabled={!termsAccepted}
-            onClick={() => {
-              formik.handleSubmit();
-            }}
-            className='bg-[#1A8AE5] font-bold text-[14px] text-white w-full rounded-xl hover:bg-[#3e9cea]'
+      <FormStyle
+        name="basic"
+        layout="vertical"
+        onFinish={onFinish}
+        autoComplete="off"
+        initialValues={{
+          dateOfBirth: dayjs('2019-01-25')
+        }}
+      >
+        <Flex gap={2} align="center" justify="center" vertical>
+          <TitleStyle>Регистрация представителя</TitleStyle>
+          <SubTitleStyle>
+              Зарегистрируйтесь как представитель компании, чтобы получить доступ к инструментам платформы "OneStep"
+          </SubTitleStyle>
+          <FormItemStyle
+            name="firstName"
+            rules={[{ required: true, message: 'Требуется имя' }]}
           >
-            Создать учетную запись
-          </Button>
-          <Button
-            variant='link'
-            onClick={() => {
-              navigate('/login');
-            }}
+            <Input size="large" placeholder="Имя" prefix={<BiSolidUserDetail style={{ color: COLORS.PRIMARY[3] }}/>}/>
+          </FormItemStyle>
+
+          <FormItemStyle
+            name="lastName"
+            rules={[{ required: true, message: 'Требуется фамилия' }]}
           >
-            Уже есть аккаунт
-          </Button>
-        </div>
-      </div>
-      <BackdropLoading loading={loading} />
+            <Input size="large" placeholder="Фамилия" prefix={<BiSolidUserDetail style={{ color: COLORS.PRIMARY[3] }}/>}/>
+          </FormItemStyle>
+
+          <FormItemStyle
+            name="post"
+            rules={[{ required: true, message: 'Напишите вашу должность' }]}
+          >
+            <Input size="large" placeholder="Должность" prefix={<BiSolidBriefcase style={{ color: COLORS.PRIMARY[3] }}/>}/>
+          </FormItemStyle>
+
+          <FormItemStyle
+            name="email"
+            rules={[{ required: true, message: 'Введите электронную почту' }]}
+          >
+            <Input size="large" placeholder="Email" prefix={<BsEnvelopeAtFill style={{ color: COLORS.PRIMARY[3] }}/>}/>
+          </FormItemStyle>
+
+          <FormItemStyle
+            name="password"
+            rules={[{ required: true, message: 'Введите пароль' }]}
+          >
+            <Input.Password size="large" placeholder="Пароль" prefix={<BiSolidLock style={{ color: COLORS.PRIMARY[3] }}/>}/>
+          </FormItemStyle>
+
+          <FormItemStyle
+            name="repeatPassword"
+            rules={[{ required: true, message: 'Введите пароль повторно' }]}
+          >
+            <Input.Password size="large" placeholder="Повторите пароль" prefix={<BiSolidLock style={{ color: COLORS.PRIMARY[3] }}/>}/>
+          </FormItemStyle>
+
+          <FormItemStyle
+            name="dateOfBirth"
+            rules={[{ required: true, message: 'Введите дату рождения' }]}
+          >
+            <DatePicker
+              size="large"
+              placeholder="Дата рождения"
+              style={{ width: '100%' }}
+            />
+          </FormItemStyle>
+
+          <ButtonStyle type="primary" htmlType="submit" loading={loading}>
+            Подтвердить
+          </ButtonStyle>
+          <Button type="link" onClick={() => { navigate('/login'); }}>Войти в систему</Button>
+        </Flex>
+      </FormStyle>
     </>
   );
 };

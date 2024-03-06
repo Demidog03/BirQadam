@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import store from '../store'
 import { logoutAction, tokenSelector } from '@/modules/auth/model/auth.slice.ts';
-import { toast } from '@/shared/shadcnUI/use-toast.tsx';
+import { message } from 'antd';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
 export const api: AxiosInstance = axios.create({
@@ -42,11 +42,10 @@ apiWithAuthAndErrorMessaging.interceptors.response.use(undefined, async (error) 
     if (error.response?.status === 401) {
       store.dispatch(logoutAction())
     }
-    toast({
-      variant: 'destructive',
-      title: 'Server Error',
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-      description: error.response?.data?.error ?? error.response?.data?.error?.message ?? 'Internal Server Error'
+    void message.error({
+      type: 'error',
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+      content: error.response?.data?.error ?? error.response?.data?.error?.message ?? error.response?.data?.message ?? 'Ошибка сервера',
     })
   }
   return await Promise.reject(error)
@@ -60,10 +59,10 @@ api.interceptors.response.use(undefined, async (error) => {
     if (error.response?.status === 401) {
       store.dispatch(logoutAction())
     }
-    toast({
-      variant: 'destructive',
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-      description: error.response?.data?.message ?? 'Internal Server Error'
+    void message.error({
+      type: 'error',
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+      content: error.response?.data?.error ?? error.response?.data?.error?.message ?? error.response?.data?.message ?? 'Ошибка сервера',
     })
   }
   return await Promise.reject(error)

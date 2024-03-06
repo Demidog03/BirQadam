@@ -1,109 +1,90 @@
-import { Button } from '@/shared/shadcnUI/button.tsx';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/shared/shadcnUI/card.tsx';
-import { Input } from '@/shared/shadcnUI/input.tsx';
-import { Label } from '@/shared/shadcnUI/label.tsx';
 import { FC } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { authLoadingSelector, loginAction } from '@/modules/auth/model/auth.slice.ts';
-import BackdropLoading from '@/shared/ui/BackdropLoading.tsx';
 import { useSelector } from '@/store';
 import { useNavigate } from 'react-router-dom';
+import { Button, Flex, Form, Input, Typography } from 'antd';
+import styled from 'styled-components';
+import { BsEnvelopeAtFill } from 'react-icons/bs';
+import { COLORS } from '@/shared/lib/constants.ts';
+import { BiSolidLock } from 'react-icons/bi';
 
-interface SigninValues {
+interface LoginSchema {
   email: string;
   password: string;
 }
 
-const SigninValueSchema = Yup.object().shape({
-  email: Yup.string().required('Username required'),
-  password: Yup.string().required('Password required'),
-});
+const FormStyle = styled(Form)`
+  max-width: 700px;
+  width: 100%;
+  background-color: #F7FAFC;
+  padding: 40px;
+  border-radius: 12px;
+`
+const FormItemStyle = styled(Form.Item<LoginSchema>)`
+  width: 100%;
+`
+const TitleStyle = styled(Typography)`
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: ${COLORS.PRIMARY[6]};
+  line-height: 110%;
+`
+const SubTitleStyle = styled(Typography)`
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-bottom: 30px;
+`
+const ButtonStyle = styled(Button)`
+  & span {
+    font-weight: 500;
+  };
+  margin-bottom: 5px;
+`
 
 const SigninForm: FC = () => {
   const dispatch = useDispatch();
   const loading = useSelector(authLoadingSelector(loginAction.type));
   const navigate = useNavigate()
 
-  const formik = useFormik<SigninValues>({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema: SigninValueSchema,
-    onSubmit: (values) => {
-      console.log('fsfs')
-      dispatch(
-        loginAction({
-          email: values.email,
-          password: values.password,
-        })
-      );
-    },
-  });
-
+  const onFinish = (values: LoginSchema) => {
+    dispatch(loginAction({
+      ...values
+    }))
+  };
+  
   return (
     <>
-      <Card className="max-w-[480px] w-full m-auto transition">
-        <CardHeader className="flex justify-center items-center">
-          <CardTitle className="text-[#0d141c] text-3xl font-bold md:text-4xl">
-            Log in to OneStep
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <div className="space-y-1">
-            <Label htmlFor="email">Email or username</Label>
-            <Input
-              className="placeholder:text-[#4f7596] border-[#d1dbe8]"
-              id="email"
-              placeholder="Enter email or username"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-            />
-            {formik.errors.email && (
-              <div className="text-red-900 text-sm">
-                {formik.errors.email}
-              </div>
-            )}
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              className="placeholder:text-[#4f7596] border-[#d1dbe8]"
-              id="password"
-              type="password"
-              placeholder="Enter password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
-            {formik.errors.password && (
-              <div className="text-red-900 text-sm">
-                {formik.errors.password}
-              </div>
-            )}
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col">
-          <Button
-            className="bg-[#1a8ae5] w-full rounded-[12px]"
-            type="button"
-            onClick={() => {
-              formik.handleSubmit();
-            }}
+      <FormStyle
+        name="basic"
+        layout="vertical"
+        onFinish={onFinish}
+        autoComplete="off"
+      >
+        <Flex gap={2} align="center" justify="center" vertical>
+          <TitleStyle>OneStep</TitleStyle>
+          <SubTitleStyle>Вход в систему</SubTitleStyle>
+          <FormItemStyle
+            name="email"
+            rules={[{ required: true, message: 'Введите вашу электронную почту' }]}
           >
-            Войти
-          </Button>
-          <Button variant="link" onClick={() => { navigate('/register'); }}>Создать команду</Button>
-        </CardFooter>
-      </Card>
-      <BackdropLoading loading={loading} />
+            <Input size="large" placeholder="Email" prefix={<BsEnvelopeAtFill style={{ color: COLORS.PRIMARY[3] }}/>}/>
+          </FormItemStyle>
+
+          <FormItemStyle
+            name="password"
+            rules={[{ required: true, message: 'Введите пароль' }]}
+          >
+            <Input.Password size="large" placeholder="Пароль" prefix={<BiSolidLock style={{ color: COLORS.PRIMARY[3] }}/>}/>
+          </FormItemStyle>
+
+          <ButtonStyle type="primary" htmlType="submit" loading={loading}>
+                Войти
+          </ButtonStyle>
+          <Button type="link" onClick={() => { navigate('/register'); }}>Регистрировать компанию</Button>
+        </Flex>
+      </FormStyle>
     </>
   );
 };
