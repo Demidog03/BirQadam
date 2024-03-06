@@ -14,10 +14,12 @@ import { profileSelector } from '@/modules/profile/model/profile.slice.ts';
 import { BiLogOutCircle, BiSolidUserCircle } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from '@/modules/auth/model/auth.slice.ts';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileMenu: FC = () => {
   const profile = useSelector(profileSelector)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   
   const handleLogout = () => {
     dispatch(logoutAction())
@@ -34,7 +36,7 @@ const ProfileMenu: FC = () => {
         <DropdownMenuLabel>{profile?.firstName}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="flex gap-1">
+          <DropdownMenuItem className="flex gap-1" onClick={() => { navigate('/profile'); }}>
             <BiSolidUserCircle className="text-lg"/>
             <span>Profile</span>
           </DropdownMenuItem>

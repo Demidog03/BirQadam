@@ -64,10 +64,12 @@ export const router: RouteObject[] = [
     ),
   },
   {
-    path: '/profiles',
+    path: '/profile',
     element: (
       <AuthPageGuard>
-        <ProfilePage />
+        <MainLayout>
+          <ProfilePage />
+        </MainLayout>
       </AuthPageGuard>
     ),
   },
