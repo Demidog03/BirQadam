@@ -17,6 +17,6 @@ export interface Profile {
     id: number
     name: string
     logo: string
-    company: Company | null
   } | null
+  company: Company | null
 }

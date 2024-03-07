@@ -9,12 +9,12 @@ export interface FetchProfileResponse {
     id: number
     name: string
     logo: string
-    company: {
-      id: number
-      name: string
-      bin: string
-      employee_numbers: number
-      logo: string
-    } | null
+  } | null
+  company: {
+    id: number
+    name: string
+    bin: string
+    employee_numbers: number
+    logo: string
   } | null
 }
