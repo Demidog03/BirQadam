@@ -64,10 +64,12 @@ export const router: RouteObject[] = [
     ),
   },
   {
-    path: '/profiles',
+    path: '/profile',
     element: (
       <AuthPageGuard>
-        <ProfilePage />
+        <MainLayout>
+          <ProfilePage />
+        </MainLayout>
       </AuthPageGuard>
     ),
   },
@@ -98,6 +100,14 @@ export const router: RouteObject[] = [
         <MainLayout>
           <h1>Courses</h1>
         </MainLayout>
+      </AuthPageGuard>
+    ),
+  },
+  {
+    path: '/updateCompany',
+    element: (
+      <AuthPageGuard>
+        <CompanySettingsPage/>
       </AuthPageGuard>
     ),
   },

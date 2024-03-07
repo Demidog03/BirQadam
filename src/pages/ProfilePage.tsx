@@ -3,7 +3,6 @@ import EmployeeEditBlock from '@/modules/employees/ui/profile/EmployeeEditBlock.
 import ProfileLayout from '@/shared/lib/layouts/ProfileLayout.tsx';
 import EmployeeProgress from '@/modules/employees/ui/profile/EmployeeProgress.tsx';
 import EmployeeProfileTabs from '@/modules/employees/ui/profile/EmployeeProfileTabs.tsx';
-import Navbar from '@/modules/navbar/ui/Navbar.tsx';
 import { useSelector } from '@/store';
 import { profileSelector } from '@/modules/profile/model/profile.slice.ts';
 
@@ -12,7 +11,6 @@ const ProfilePage: FC = () => {
   const profile = useSelector(profileSelector)
   return (
     <div className="w-full h-full">
-      <Navbar/>
       <div  className={'flex justify-center'}>
         <ProfileLayout>
           <EmployeeEditBlock

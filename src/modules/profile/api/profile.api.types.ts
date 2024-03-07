@@ -5,11 +5,16 @@ export interface FetchProfileResponse {
   last_name: string
   job_title: string | null
   birth_date: string | null
-  company: {
+  team: {
     id: number
     name: string
-    bin: string
-    employee_numbers: number
     logo: string
+    company: {
+      id: number
+      name: string
+      bin: string
+      employee_numbers: number
+      logo: string
+    } | null
   } | null
 }
