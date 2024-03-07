@@ -13,5 +13,10 @@ export interface Profile {
   lastName: string
   jobTitle: string | null
   birthDate: string | null
-  company: Company | null
+  team: {
+    id: number
+    name: string
+    logo: string
+    company: Company | null
+  } | null
 }
