@@ -15,14 +15,16 @@ const Modal: FC<ModalProps> = ({ title, open, submitButton, close, submit, child
   const modalStyles = {
     footer: {
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      margin: 0
     }
   };
 
   return (
     <>
       <ModalAnt
-        title={title}
+        className='fontSize-[24px] font-semibold '
+        title={<h1 className='text-[24px] mb-12'>{title}</h1>}
         open={open}
         onOk={submit}
         onCancel={close}

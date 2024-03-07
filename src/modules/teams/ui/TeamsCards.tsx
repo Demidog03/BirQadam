@@ -1,19 +1,7 @@
-import { useState } from 'react';
 import { TeamCard } from './TeamCard';
-import { Button } from 'antd';
-import Modal from '@/shared/antDesign/modal';
+import TeamCreate from './TeamCreate';
 
 export const TeamsCards = () => {
-  const [open, setOpen] = useState(false);
-
-  const showModal = () => {
-    open ? setOpen(false) : setOpen(true);
-  };
-
-  const handleSubmit = () => {
-    setOpen(false);
-  }
-
   return (
     <div className='mx-auto'>
 
@@ -58,18 +46,7 @@ export const TeamsCards = () => {
           manager="Отеп Олжас"
           numberEmployees={13}
         />
-        <div className="rounded-[10px] self-center border-spacing-1 border-gray-100 border-[1px] p-4 bg-white w-full">
-          <Button className="w-full" type='link' onClick={showModal}>Создать команду</Button>
-          <Modal 
-            title='Создать команду' 
-            open={open} 
-            close={showModal} 
-            submit={handleSubmit}
-            submitButton='Создать'
-          >
-            Aaaa
-          </Modal>
-        </div>
+        <TeamCreate/>
       </div>
 
     </div>
