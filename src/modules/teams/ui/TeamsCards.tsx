@@ -1,7 +1,10 @@
+import { useSelector } from '@/store';
 import { TeamCard } from './TeamCard';
 import TeamCreate from './TeamCreate';
+import { teamsSelector } from '../model/teams.slice';
 
 export const TeamsCards = () => {
+  const teams = useSelector(teamsSelector)
   return (
     <div className='mx-auto'>
 
@@ -46,6 +49,15 @@ export const TeamsCards = () => {
           manager="Отеп Олжас"
           numberEmployees={13}
         />
+        {teams.map((team, index) => (
+          <TeamCard 
+            key={index}
+            image={team.logo}
+            category={team.name}
+            manager='F'
+            numberEmployees={13}
+          />
+        ))}
         <TeamCreate/>
       </div>
 

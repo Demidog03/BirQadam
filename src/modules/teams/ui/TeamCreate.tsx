@@ -6,11 +6,13 @@ import * as Yup from 'yup';
 import Input from 'antd/es/input/Input';
 import Upload from '@/shared/ui/Upload';
 import { BiImageAdd } from 'react-icons/bi';
+import { useDispatch } from 'react-redux';
+import { createTeamAction } from '../model/teams.slice';
 
 interface TeamCreateFormValues {
   teamName: string
   email: string
-  teamLogo: string
+  logo: string
 }
 
 const TeamCreateSchema = Yup.object().shape({
@@ -25,19 +27,23 @@ const TeamCreateSchema = Yup.object().shape({
 })
 
 const TeamCreate: FC = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   const [image, setImage] = useState<string>('')
+  const dispatch = useDispatch()
 
   const formik = useFormik<TeamCreateFormValues>({
     initialValues: {
       teamName: '',
       email: '',
-      teamLogo: ''
+      logo: ''
     },
     validationSchema: TeamCreateSchema,
     validateOnChange: false,
     onSubmit: (values, { resetForm }) => {
-      console.log(values)
+      dispatch(createTeamAction({
+        name: values.teamName,
+        logo: image
+      }))
       setOpen(false)
       setImage('')
       resetForm()
@@ -91,7 +97,7 @@ const TeamCreate: FC = () => {
           </div>
           <div className="space-y-1 mb-[20px]">
             <Upload 
-              value={formik.values.teamLogo} 
+              value={formik.values.logo} 
               label='Загрузите изображение команды' 
               image={image} 
               setImage={setImage}

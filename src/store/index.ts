@@ -7,6 +7,7 @@ import profileReducer from '../modules/profile/model/profile.slice.ts'
 import sidebarReducer from '../modules/sidebar/model/sidebar.slice.ts'
 import employeesReducer from '../modules/employees/model/employee.slice.ts'
 import companyReducer from '../modules/company/model/company.slice.ts'
+import teamsReducer from '../modules/teams/model/teams.slice.ts'
 
 const sagaMiddleware = createSagaMiddleware()
 const middlewares = new MiddlewareArray(sagaMiddleware)
@@ -18,6 +19,7 @@ const store = configureStore({
     sidebar: sidebarReducer,
     employees: employeesReducer,
     company: companyReducer,
+    teams: teamsReducer,
   },
   devTools: true,
   middleware: middlewares
