@@ -12,7 +12,7 @@ interface UploudProps {
   className?: string
 }
 
-const Upload: FC<UploudProps> = ({ label, value, image, setImage, leftContent, className }) => {
+const UploadImage: FC<UploudProps> = ({ label, value, image, setImage, leftContent, className }) => {
   const getImage = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -47,14 +47,14 @@ const Upload: FC<UploudProps> = ({ label, value, image, setImage, leftContent, c
   }
 
   return (
-    <div className='w-full flex justify-between'>
+    <div className='w-full flex justify-between max-[400px]:flex-col'>
       <label 
         htmlFor="teamLogo" 
         className='max-h-[24px] text-[14px] ml-1 font-normal text-[#4F7596] cursor-pointer flex items-center'
       >
         <div className='w-[21px] h-[24px] flex items-center mr-1'>{leftContent}</div>
         <div>
-          <span>{label}</span>
+          <span className='max-[510px]:text-[12px]'>{label}</span>
           <div className='w-full h-[2px] bg-[#4F7596]'></div>
         </div>
       </label>
@@ -66,9 +66,9 @@ const Upload: FC<UploudProps> = ({ label, value, image, setImage, leftContent, c
         value={value}
         accept=".png,.jpg,.jpeg,.gif"
       />
-      <div><img src={image} className={'max-h-[116px] max-w-[168px] rounded-md ' + className} /></div>
+      <div className='max-[400px]:mt-4'><img src={image} className={'max-h-[116px] max-w-[168px] rounded-md ' + className} /></div>
     </div>
   );
 };
 
-export default Upload;
+export default UploadImage;

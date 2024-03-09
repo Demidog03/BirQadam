@@ -1,13 +1,15 @@
 import { FC, useState } from 'react';
 import { Button } from 'antd';
-import Modal from '@/shared/antDesign/modal';
+import Modal from '@/modules/teams/ui/modal';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from 'antd/es/input/Input';
-import Upload from '@/shared/ui/Upload';
+import UploadImage from '@/shared/ui/UploadImage';
 import { BiImageAdd } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { createTeamAction } from '../model/teams.slice';
+import { useSelector } from '@/store';
+import { companySelector } from '@/modules/company/model/company.slice';
 
 interface TeamCreateFormValues {
   teamName: string
@@ -30,6 +32,7 @@ const TeamCreate: FC = () => {
   const [open, setOpen] = useState(false)
   const [image, setImage] = useState<string>('')
   const dispatch = useDispatch()
+  const companyId = useSelector(companySelector)?.id as number
 
   const formik = useFormik<TeamCreateFormValues>({
     initialValues: {
@@ -42,7 +45,9 @@ const TeamCreate: FC = () => {
     onSubmit: (values, { resetForm }) => {
       dispatch(createTeamAction({
         name: values.teamName,
-        logo: image
+        logo: image,
+        email: values.email,
+        companyId: companyId
       }))
       setOpen(false)
       setImage('')
@@ -77,7 +82,7 @@ const TeamCreate: FC = () => {
               onChange={formik.handleChange}
               value={formik.values.teamName}
               placeholder='Название команды'
-              className='h-[56px] text-base placeholder:text-[#4f7596] border-[#d1dbe8]'
+              className='h-[56px] text-base placeholder:text-[#4f7596] border-[#d1dbe8] max-[510px]:placeholder:text-[12px]'
             />
             {formik.errors.teamName && (
               <div className="!mb-[-24px] text-rose-500 ml-1 text-sm">{formik.errors.teamName}</div>
@@ -89,14 +94,14 @@ const TeamCreate: FC = () => {
               onChange={formik.handleChange}
               value={formik.values.email}
               placeholder='Введите почту менеджера'
-              className='h-[56px] text-base placeholder:text-[#4f7596] border-[#d1dbe8] hover:border-[#d1dbe8] '
+              className='h-[56px] text-base placeholder:text-[#4f7596] border-[#d1dbe8] hover:border-[#d1dbe8] max-[510px]:placeholder:text-[12px]'
             />
             {formik.errors.email && (
               <div className="!mb-[-24px] text-rose-500 ml-1 text-sm">{formik.errors.email}</div>
             )}
           </div>
           <div className="space-y-1 mb-[20px]">
-            <Upload 
+            <UploadImage 
               value={formik.values.logo} 
               label='Загрузите изображение команды' 
               image={image} 

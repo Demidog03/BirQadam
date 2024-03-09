@@ -14,6 +14,8 @@ export interface Team {
 }
 
 export interface CreateTeamPayload {
-  name: string;
-  logo: string;
+  name: string
+  logo: string
+  email: string
+  companyId: number
 }

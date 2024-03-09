@@ -15,3 +15,19 @@ export interface TeamResponse {
     logo: string;
   }
 }
+
+export interface InviteManagerBody {
+  recipient_email: string
+  invite_type: string
+  team_id: number
+  company_id: number
+}
+
+export interface InviteResponse {
+  id: string
+  recipient_email: string
+  token: string
+  invite_type: string
+  team_id: number
+  company_id: number
+}
