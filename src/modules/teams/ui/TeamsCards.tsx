@@ -55,7 +55,7 @@ export const TeamsCards = () => {
             image={team.logo}
             category={team.name}
             manager='F'
-            numberEmployees={13}
+            numberEmployees={team.company.employeeNumbers}
           />
         ))}
         <TeamCreate/>

@@ -41,7 +41,6 @@ const Upload: FC<UploudProps> = ({ label, value, image, setImage, leftContent, c
         });
       }
       else {
-        console.log(result)
         setImage(result.image);
       }
     }))

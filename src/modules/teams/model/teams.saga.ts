@@ -21,6 +21,13 @@ function* createTeamSaga(action: ReturnType<typeof createTeamAction>) {
         id: response.data.id,
         name: response.data.name,
         logo: response.data.logo,
+        company: {
+          id: response.data.company.id,
+          name: response.data.company.name,
+          bin: response.data.company.bin,
+          employeeNumbers: response.data.company.employee_numbers,
+          logo: response.data.company.logo,
+        }
       })
     );
   } catch {
