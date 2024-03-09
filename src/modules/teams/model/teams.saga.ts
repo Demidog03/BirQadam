@@ -1,11 +1,12 @@
 import { put, call, takeLeading } from 'redux-saga/effects';
 import { ResponseType } from '@/shared/lib/types.ts';
 import { toast } from '@/shared/shadcnUI/use-toast.tsx';
-import { createTeamAction, setTeam } from './teams.slice';
+import { createTeamAction, setTeam, setTeamsLoading } from './teams.slice';
 import { createTeamApi } from '../api/teams.api';
 
 function* createTeamSaga(action: ReturnType<typeof createTeamAction>) {
   try {
+    yield put(setTeamsLoading({ actionType: action.type, isLoading: true }));
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const response: ResponseType<ReturnType<typeof createTeamApi>> =
       yield call(createTeamApi, {
@@ -32,6 +33,8 @@ function* createTeamSaga(action: ReturnType<typeof createTeamAction>) {
     );
   } catch {
     /* empty */
+  } finally {
+    yield put(setTeamsLoading({ actionType: action.type, isLoading: false }));
   }
 }
 
