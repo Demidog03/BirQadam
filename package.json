@@ -32,6 +32,7 @@
     "@radix-ui/react-toggle": "^1.0.3",
     "@reduxjs/toolkit": "^1.9.7",
     "@types/swiper": "^6.0.0",
+    "antd": "^5.15.0",
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

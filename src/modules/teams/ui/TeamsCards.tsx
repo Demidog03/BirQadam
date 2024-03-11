@@ -1,8 +1,10 @@
+import { useSelector } from '@/store';
 import { TeamCard } from './TeamCard';
-import { Button } from '@/shared/shadcnUI/button.tsx';
-
+import TeamCreate from './TeamCreate';
+import { teamsSelector } from '../model/teams.slice';
 
 export const TeamsCards = () => {
+  const teams = useSelector(teamsSelector)
   return (
     <div className='mx-auto'>
 
@@ -47,9 +49,16 @@ export const TeamsCards = () => {
           manager="Отеп Олжас"
           numberEmployees={13}
         />
-        <div className="rounded-[10px] self-center border-spacing-1 border-gray-100 border-[1px] p-4 bg-white w-full">
-          <Button variant="outline" className="w-full">Создать команду</Button>
-        </div>
+        {teams.map((team, index) => (
+          <TeamCard 
+            key={index}
+            image={team.logo}
+            category={team.name}
+            manager='F'
+            numberEmployees={team.company.employeeNumbers}
+          />
+        ))}
+        <TeamCreate/>
       </div>
 
     </div>
