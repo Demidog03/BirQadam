@@ -20,3 +20,10 @@ export interface Profile {
   } | null
   company: Company | null
 }
+
+export interface ProfileUpdatePayload {
+  email?: string
+  firstName?: string
+  lastName?: string
+  jobTitle?: string
+}
