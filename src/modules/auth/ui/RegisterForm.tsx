@@ -76,6 +76,12 @@ const SubTitleStyle = styled(Typography)`
   line-height: 110%;
   text-align: center;
 `
+const ButtonStyle = styled(Button)`
+  & span {
+    font-weight: 500;
+  };
+  margin-bottom: 5px;
+`
 
 const RegisterForm: FC = () => {
   const dispatch = useDispatch();
@@ -93,12 +99,6 @@ const RegisterForm: FC = () => {
       ...formattedValues
     }))
   };
-  const ButtonStyle = styled(Button)`
-  & span {
-    font-weight: 500;
-  };
-  margin-bottom: 5px;
-`
 
   return (
     <>
@@ -108,7 +108,7 @@ const RegisterForm: FC = () => {
         onFinish={onFinish}
         autoComplete="off"
         initialValues={{
-          dateOfBirth: dayjs('2019-01-25')
+          dateOfBirth: dayjs('1990-01-01')
         }}
       >
         <Flex gap={2} align="center" justify="center" vertical>

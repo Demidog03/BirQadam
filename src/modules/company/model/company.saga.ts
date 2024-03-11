@@ -18,10 +18,8 @@ function* createCompanySaga(action: ReturnType<typeof createCompanyAction>) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const response: ResponseType<ReturnType<typeof createCompanyApi>> =
       yield call(createCompanyApi, {
-        name: action.payload.name,
-        bin: action.payload.bin,
+        ...action.payload,
         employee_numbers: action.payload.employeeNumbers,
-        logo: action.payload.logo,
       });
     toast({
       variant: 'default',
@@ -29,11 +27,8 @@ function* createCompanySaga(action: ReturnType<typeof createCompanyAction>) {
     });
     yield put(
       setCompany({
-        id: response.data.id,
-        name: response.data.name,
-        bin: response.data.bin,
+        ...response.data,
         employeeNumbers: response.data.employee_numbers,
-        logo: response.data.logo,
       })
     );
   } catch {
@@ -49,11 +44,8 @@ function* updateCompanySaga(action: ReturnType<typeof updateCompanyAction>) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const response: ResponseType<ReturnType<typeof updateCompanyApi>> =
       yield call(updateCompanyApi, {
-        id: action.payload.id,
-        name: action.payload.name,
-        bin: action.payload.bin,
+        ...action.payload,
         employee_numbers: action.payload.employeeNumbers,
-        logo: action.payload.logo,
       });
     toast({
       variant: 'default',
@@ -61,11 +53,8 @@ function* updateCompanySaga(action: ReturnType<typeof updateCompanyAction>) {
     });
     yield put(
       setCompany({
-        id: response.data.id,
-        name: response.data.name,
-        bin: response.data.bin,
+        ...response.data,
         employeeNumbers: response.data.employee_numbers,
-        logo: response.data.logo,
       })
     );
   } catch {
