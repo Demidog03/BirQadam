@@ -17,20 +17,18 @@ function* fetchProfileSaga(action: ReturnType<typeof loginAction>) {
       lastName: response.data.last_name,
       birthDate: response.data.birth_date,
       jobTitle: response.data.job_title,
-      team: response.data.team? {
-        id: response.data.team.id,
-        name: response.data.team.name,
-        logo: response.data.team.logo,
-        company: response.data.team.company? {
-          ...response.data.team.company,
-          employeeNumbers: response.data.team.company.employee_numbers,
-        } : null
-      }:null
+      team: response.data.team ? {
+        ...response.data.team
+      } : null,
+      company: response.data.company ? {
+        ...response.data.company,
+        employeeNumbers: response.data.company.employee_numbers,
+      } : null
     }))
-    if(response.data.team?.company) {
+    if(response.data.company) {
       yield put(setCompany({
-        ...response.data.team.company,
-        employeeNumbers: response.data.team.company.employee_numbers,
+        ...response.data.company,
+        employeeNumbers: response.data.company.employee_numbers,
       }))
     }
   }
