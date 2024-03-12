@@ -15,7 +15,6 @@ export const createCompanyApi = async (
 export const updateCompanyApi = async (
   body: updateCompanyBody
 ): AxiosPromise<CreateCompanyResponse> => {
-  console.log('fgjh11111');
   return await apiWithAuthAndErrorMessaging.patch(
     `/companies/company/${body.id}/update/`,
     body

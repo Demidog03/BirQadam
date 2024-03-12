@@ -5,12 +5,14 @@ import { data } from '../ui/data/data'
 
 
 const initialState: EmployeesState = {
-  employees: data
+  employees: data,
 }
-  
+
 interface Reducers<State> extends SliceCaseReducers<State> {
   addEmployee: CaseReducer<State, PayloadAction<Employee>>
 }
+
+
   
 const employeesSlice = createSlice<EmployeesState, Reducers<EmployeesState>>({
   name: 'employees',
@@ -18,10 +20,14 @@ const employeesSlice = createSlice<EmployeesState, Reducers<EmployeesState>>({
   reducers: {
     addEmployee: (state, action) => {
       state.employees.push(action.payload)
-    },
+    }
   }
 })
-  
+
+
+
+
+
 export const fetchEmployee = createAction('employee/fetchEmployees')
 
 export const { addEmployee } = employeesSlice.actions
