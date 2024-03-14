@@ -4,20 +4,24 @@ import { useSelector } from '@/store';
 import { sidebarSelector } from '@/modules/sidebar/model/sidebar.slice.ts';
 import Navbar from '@/modules/navbar/ui/Navbar.tsx';
 import ContainerLayout from '@/shared/lib/layouts/ContainerLayout.tsx';
+import { Layout } from 'antd';
 
 const MainLayout: FC<{children: ReactNode}> = ({ children }) => {
   const sidebar = useSelector(sidebarSelector)
   
   return (
-    <div className="flex w-full pr-[0.5rem] bg-[#fafafa]">
+    <Layout style={{ minHeight: '100vh' }}>
       <Sidebar/>
-      <div style={{ width: `calc(100% - ${sidebar?.isOpen ? 260 : 80}px)`, transition: 'ease-out 0.2s' }} >
+      <div style={{ width: `calc(100% - ${sidebar.isOpen ? 260 : 80}px)`, transition: 'ease-out 0.2s' }} >
         <Navbar/>
         <ContainerLayout>
           {children}
         </ContainerLayout>
       </div>
-    </div>
+    </Layout>
+    // <div className="flex w-full pr-[0.5rem] bg-[#fafafa]">
+      
+    // </div>
   );
 };
 
