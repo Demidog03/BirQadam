@@ -1,8 +1,8 @@
 import { put, call, takeLeading } from 'redux-saga/effects';
 import { ResponseType } from '@/shared/lib/types.ts';
-import { toast } from '@/shared/shadcnUI/use-toast.tsx';
 import { createTeamAction, setTeam, setTeamsLoading } from './teams.slice';
 import { createTeamApi, inviteManagerApi } from '../api/teams.api';
+import { message } from 'antd';
 
 function* createTeamSaga(action: ReturnType<typeof createTeamAction>) {
   try {
@@ -19,10 +19,7 @@ function* createTeamSaga(action: ReturnType<typeof createTeamAction>) {
       team_id: response.data.id,
       company_id: action.payload.companyId
     });
-    toast({
-      variant: 'default',
-      title: `Команда "${response.data.name}" создана!`,
-    });
+    void message.success(`Команда "${response.data.name}" создана!`);
     yield put(
       setTeam({
         id: response.data.id,

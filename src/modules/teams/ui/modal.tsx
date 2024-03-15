@@ -1,38 +1,46 @@
 import { FC, ReactNode } from 'react';
-import { Button, Modal as ModalAnt } from 'antd';
+import { Modal as ModalAnt } from 'antd';
+import styled from 'styled-components';
+
+const ModalStyle = styled(ModalAnt)`
+  font-size: 24px;
+  font-weight: 600;
+  & .ant-modal-content {
+    
+  }
+  & h1 {
+    font-size: 24px;
+    margin-bottom: 38px;
+  }
+  & .ant-modal-footer {
+    display: flex;
+    justify-content: center;
+    & button {
+      width: 173px;
+      height: 40px;
+    }
+  }
+`
 
 interface ModalProps {
     title: string
     open: boolean
-    submitButton: string
     close: () => void
-    submit: () => void
     children: ReactNode
 }
 
 
-const Modal: FC<ModalProps> = ({ title, open, submitButton, close, submit, children }) => {
-  const modalStyles = {
-    footer: {
-      display: 'flex',
-      justifyContent: 'center',
-      margin: 0
-    }
-  };
-
+const Modal: FC<ModalProps> = ({ title, open, close, children }) => {
   return (
     <>
-      <ModalAnt
-        className='fontSize-[24px] font-semibold '
-        title={<h1 className='text-[24px] mb-12'>{title}</h1>}
+      <ModalStyle
+        title={<h1>{title}</h1>}
         open={open}
-        onOk={submit}
         onCancel={close}
-        styles={modalStyles}
-        footer={<Button onClick={submit} type='primary' className='bg-[#1a8ae5] w-[173px] h-[40px]'>{submitButton}</Button>}
+        footer={null}
       >
         {children}
-      </ModalAnt>
+      </ModalStyle>
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import BurgerMenu from './BurgerMenu';
 import Menu from './Menu';
 import { Flex } from 'antd';
 import styled from 'styled-components';
@@ -20,7 +19,6 @@ const Navbar: FC = () => {
     <FlexStyle gap={2} justify='space-between' align='center'>
       <H1Style>OneStep</H1Style>
       <Menu />
-      <BurgerMenu />
     </FlexStyle>
   );
 };

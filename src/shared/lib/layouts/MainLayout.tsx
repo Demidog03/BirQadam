@@ -19,9 +19,6 @@ const MainLayout: FC<{children: ReactNode}> = ({ children }) => {
         </ContainerLayout>
       </div>
     </Layout>
-    // <div className="flex w-full pr-[0.5rem] bg-[#fafafa]">
-      
-    // </div>
   );
 };
 
