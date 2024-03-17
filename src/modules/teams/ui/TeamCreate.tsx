@@ -39,6 +39,11 @@ const FormItemStyle = styled(Form.Item<TeamCreateFormValues>)`
       color: ${COLORS.LIGHT[7]};
     }
   }
+  @media(max-width: 510px) {
+    input {
+      font-size: 12px;
+    }
+  }
 `
 const ButtonStyle = styled(Button)`
   width: 173px;
@@ -48,6 +53,7 @@ const ButtonStyle = styled(Button)`
 
 const TeamCreate: FC = () => {
   const [open, setOpen] = useState(false)
+  const [image, setImage] = useState<string>('')
   const [form] = Form.useForm<TeamCreateFormValues>()
   const dispatch = useDispatch()
   const companyId = useSelector(companySelector)?.id as number
@@ -59,10 +65,10 @@ const TeamCreate: FC = () => {
   const closeModal = () => {
     setOpen(false)
     form.resetFields()
+    setImage('')
   }
 
   const onFinish = (values: TeamCreateFormValues) => {
-    console.log(values)
     dispatch(createTeamAction({
       name: values.teamName,
       logo: values.logo,
@@ -74,6 +80,7 @@ const TeamCreate: FC = () => {
 
   const handelChange = (img: string) => {
     form.setFieldValue('logo', img)
+    setImage(img)
   }
 
   return (
@@ -100,10 +107,10 @@ const TeamCreate: FC = () => {
             <FormItemStyle
               name="email"
               rules={[
-                // {
-                //   type: 'email',
-                //   message: 'Не корректный E-mail!',
-                // },
+                {
+                  type: 'email',
+                  message: 'Не корректный E-mail!',
+                },
                 { 
                   required: true,
                   message: 'Введите электронную почту менеджера' 
@@ -117,7 +124,7 @@ const TeamCreate: FC = () => {
             >
               <UploadImage 
                 label='Загрузите изображение команды' 
-                image={form.getFieldValue('logo') as string} 
+                image={image} 
                 setImage={handelChange}
                 leftContent={<BiImageAdd style={{ width: '100%', height: '100%', fill: COLORS.PRIMARY[5] }}/>} 
               />

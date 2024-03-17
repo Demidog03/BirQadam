@@ -1,6 +1,32 @@
-import { Input, message } from 'antd';
+import { Flex, Image, Input, message } from 'antd';
 import { ChangeEvent, FC, ReactNode } from 'react'
 import { convertFileToBase64, isFileTypeSupported } from '../lib/utils';
+import styled from 'styled-components';
+import { COLORS } from '../lib/constants';
+
+const FlexStyle = styled(Flex)`
+  width: 100%;
+  @media(max-width: 545px) {
+    flex-direction: column;
+  }
+`
+const LabelStyle = styled('label')`
+  max-height: 24px;
+  font-size: 14px;
+  margin-left: 4px; 
+  color: ${COLORS.PRIMARY[5]};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`
+
+const SpanStyle = styled('span')`
+  white-space: nowrap;
+  border-bottom: 2px solid ${COLORS.PRIMARY[5]};
+  @media(max-width: 510px) {
+    font-size: 12px;
+  }
+`
 
 interface UploudProps {
   label: string
@@ -32,28 +58,21 @@ const UploadImage: FC<UploudProps> = ({ label, image, setImage, leftContent }) =
       }
     }))
   }
-
   return (
-    <div className='w-full flex justify-between max-[545px]:flex-col'>
-      <label 
-        htmlFor="teamLogo" 
-        className='max-h-[24px] text-[14px] ml-1 font-normal text-[#4F7596] cursor-pointer flex items-center'
-      >
-        <div className='w-[21px] h-[24px] flex items-center mr-1'>{leftContent}</div>
-        <div>
-          <span style={{ whiteSpace: 'nowrap' }} className='max-[510px]:text-[12px]'>{label}</span>
-          <div className='w-full h-[2px] bg-[#4F7596]'></div>
-        </div>
-      </label>
+    <FlexStyle justify='space-between'>
+      <LabelStyle htmlFor="teamLogo">
+        <Flex align='center' style={{ width: '21px', height: '24px', marginRight: '4px' }}>{leftContent}</Flex>
+        <SpanStyle>{label}</SpanStyle>
+      </LabelStyle>
       <Input
-        style={{ width: 0, visibility: 'hidden' }}
+        style={{ width: 0, visibility: 'hidden', padding: 0 }}
         id='teamLogo'
         type='file'
         onChange={getImage}
         accept=".png,.jpg,.jpeg,.gif"
       />
-      <div ><img src={image} className={'max-h-[116px] max-w-[168px] rounded-md '} /></div>
-    </div>
+      <Image src={image} width={168} style={{ borderRadius: '10px' }} />
+    </FlexStyle>
   );
 };
 
