@@ -33,7 +33,7 @@ export const CompanySettingsPage = () => {
       url: `${serverCompanyData.logo}`,
     },
   ])
-  const [disableButton, setDisableButton] = useState(false)
+  const [disableButton, setDisableButton] = useState(true)
 
   const handleSubmit = () =>{
     dispatch(
