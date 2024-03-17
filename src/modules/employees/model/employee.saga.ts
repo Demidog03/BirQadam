@@ -1,16 +1,16 @@
 import { call, put, takeLeading } from 'redux-saga/effects';
 import { setCompanyLoading } from '@/modules/company/model/company.slice';
 import { toast } from '@/shared/shadcnUI/use-toast.tsx';
-import { inviteEmployeApi } from '../api/employees.api';
+import { inviteEmployeeApi } from '../api/employees.api';
 import { ResponseType } from '@/shared/lib/types.ts';
-import { inviteEmploueAction, inviteEmplouee } from './emloueeSliseInvite';
+import { inviteEmployeeAction, inviteEmployee } from './emloyeeSliseInvite';
 
-function* inviteEmploueeSaga(action: ReturnType<typeof inviteEmploueAction>) {
+function* inviteEmployeeSaga(action: ReturnType<typeof inviteEmployeeAction>) {
   try {
     yield put(setCompanyLoading({ actionType: action.type, isLoading: true }));
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const response: ResponseType<ReturnType<typeof inviteEmployeApi>> =
-      yield call(inviteEmployeApi, {
+    const response: ResponseType<ReturnType<typeof inviteEmployeeApi>> =
+      yield call(inviteEmployeeApi, {
         recipient_email: action.payload.recipient_email,
         invite_type: action.payload.invite_type,
         team_id: action.payload.team_id,
@@ -21,7 +21,7 @@ function* inviteEmploueeSaga(action: ReturnType<typeof inviteEmploueAction>) {
       title: 'Приглашение отправлено',
     });
     yield put(
-      inviteEmplouee({
+      inviteEmployee({
         recipient_email: response.data.recipient_email,
         //token: response.data.token,
         invite_type: response.data.invite_type,
@@ -37,6 +37,6 @@ function* inviteEmploueeSaga(action: ReturnType<typeof inviteEmploueAction>) {
   }
 }
 
-export function* inviteEmploueeSagaa() {
-  yield takeLeading(inviteEmploueAction.type, inviteEmploueeSaga);
+export function* inviteEmployeeSagaa() {
+  yield takeLeading(inviteEmployeeAction.type, inviteEmployeeSaga);
 }

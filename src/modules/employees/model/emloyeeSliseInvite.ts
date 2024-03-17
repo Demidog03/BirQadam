@@ -1,7 +1,7 @@
 import { CaseReducer, PayloadAction, SliceCaseReducers, createAction, createSlice } from '@reduxjs/toolkit'
-import { inviteEmployeRequest, inviteEmployeResponse } from '../api/employees.api.types'
+import { inviteEmployeeRequest, inviteEmployeeResponse } from '../api/employees.api.types'
 
-const initialState: inviteEmployeResponse = {
+const initialState: inviteEmployeeResponse = {
   id: 0,
   recipient_email: '',
   //token: '',
@@ -12,14 +12,14 @@ const initialState: inviteEmployeResponse = {
 
 
 interface Reducers<State> extends SliceCaseReducers<State> {
-    inviteEmplouee: CaseReducer<State, PayloadAction<inviteEmployeResponse>>
+    inviteEmployee: CaseReducer<State, PayloadAction<inviteEmployeeResponse>>
   }
 
-const employeesInvite = createSlice<inviteEmployeResponse, Reducers<inviteEmployeResponse>>({
+const employeesInvite = createSlice<inviteEmployeeResponse, Reducers<inviteEmployeeResponse>>({
   name: 'employees',
   initialState,
   reducers: {
-    inviteEmplouee : (state, action) => {
+    inviteEmployee : (state, action) => {
       state.recipient_email = action.payload.recipient_email
       state.invite_type = action.payload.invite_type
       state.team_id = action.payload.team_id
@@ -28,12 +28,12 @@ const employeesInvite = createSlice<inviteEmployeResponse, Reducers<inviteEmploy
   }
 })
 
-export const inviteEmploueAction = createAction<inviteEmployeRequest>(
+export const inviteEmployeeAction = createAction<inviteEmployeeRequest>(
   'employee/invite'
 );
 
-export const { inviteEmplouee } = employeesInvite.actions
+export const { inviteEmployee } = employeesInvite.actions
   
-export const employeesInviteSelector = (state: inviteEmployeRequest)  => state
+export const employeesInviteSelector = (state: inviteEmployeeRequest)  => state
   
 export default employeesInvite.reducer
