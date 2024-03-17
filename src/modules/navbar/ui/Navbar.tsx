@@ -2,9 +2,11 @@ import { FC } from 'react';
 import Menu from './Menu';
 import { Flex } from 'antd';
 import styled from 'styled-components';
+import { COLORS } from '@/shared/lib/constants';
 
 const FlexStyle = styled(Flex)`
   position: sticky;
+  background: ${COLORS.LIGHT[0]};
   top: 0;
   padding: 0 16px;
   z-index: 10;
