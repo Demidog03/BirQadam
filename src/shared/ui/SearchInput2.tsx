@@ -1,21 +1,24 @@
-import { Input } from '@/shared/shadcnUI/input';
+
+import { Input } from 'antd';
+import { Flex } from 'antd/lib';
 import { SearchIcon } from 'lucide-react';
 
 
 export const SearchInput2 = () =>{
 
   return (
-    <div className='w-[100%], flex justify-center'>
-      <div className='flex items-center rounded-md border border-input bg-[#E8EDF2] pl-3 text-sm ring-offset-background focus-within:ring-1 focus-within:ring-ring w-[98%]'>
-        <SearchIcon className="h-[16px] w-[16px] text-[#4F7596]" />
+    <Flex justify='center' style={{ width: '100%' }}>
+      <Flex align='center' style={{ backgroundColor: '#E8EDF2', borderRadius:'6px', width: '100%', marginLeft: '16px' }}>
+        <SearchIcon  style={{ marginRight: '-20px', zIndex: 1, height:'16px', width: '16px', color: '#4F7596' }}/>
         <Input
+          style={{ paddingLeft: '22px' }}
           className="placeholder:text-[#4f7596] border-none bg-[#E8EDF2] text-[16px]"
           id="username"
           placeholder="Поиск по именам, почте и команде"
           type='search' />
+      </Flex>
+    </Flex>
 
-      </div>
-    </div>
   );
 }
 
