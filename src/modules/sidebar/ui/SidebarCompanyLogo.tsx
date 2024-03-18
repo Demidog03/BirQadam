@@ -1,5 +1,11 @@
-import { Avatar as AvatarIcon, AvatarFallback, AvatarImage } from '@/shared/shadcnUI/avatar.tsx'
+import { COLORS } from '@/shared/lib/constants';
+import { Avatar } from 'antd';
 import { FC } from 'react';
+import styled from 'styled-components';
+
+const AvatarStyle = styled(Avatar)`
+  background: ${COLORS.SECONDARY[8]};
+`
 
 interface CompanyLogoInterface {
   imageSrc: string
@@ -7,12 +13,7 @@ interface CompanyLogoInterface {
 
 const SidebarCompanyLogo: FC<CompanyLogoInterface> = ({ imageSrc }) => {
   return (
-    <div className="w-[40px] h-[40px] mb-1">
-      <AvatarIcon className='w-full h-full'>
-        <AvatarImage src={imageSrc} alt="company logo"/>
-        <AvatarFallback className='bg-sky-700 text-[#ffffff]'>Logo</AvatarFallback>
-      </AvatarIcon>
-    </div>
+    <AvatarStyle size={42} gap={2} src={imageSrc}>Logo</AvatarStyle>
   )
 }
 

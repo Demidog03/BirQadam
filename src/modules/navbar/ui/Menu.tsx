@@ -1,13 +1,14 @@
 import { FC } from 'react';
 import HelpIcon from './HelpIcon';
 import ProfileMenu from '@/modules/profile/ui/ProfileMenu.tsx';
+import { Flex } from 'antd';
 
 const Menu: FC = () => {
   return (
-    <div className=" items-center gap-2.5 hidden lg:flex">
+    <Flex align='center' gap={2.5}>
       <HelpIcon />
       <ProfileMenu/>
-    </div>
+    </Flex>
   );
 };
 

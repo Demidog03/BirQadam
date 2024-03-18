@@ -1,93 +1,115 @@
-import { memo, useEffect, useState } from 'react';
+import { Key, ReactNode, memo, useState } from 'react';
 import usePathnameSegments from '@/shared/lib/hooks/usePathnameSegments.tsx';
-import SidebarMenuItem, { TSidebarMenuItem } from '@/modules/sidebar/ui/SidebarMenuItem.tsx';
 import { useDispatch } from 'react-redux';
 import { setSidebarOpenState, sidebarSelector } from '@/modules/sidebar/model/sidebar.slice.ts';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/shared/shadcnUI/accordion';
 import SidebarCompanyLogo from './SidebarCompanyLogo';
 import { useSelector } from '@/store';
 import { companySelector } from '@/modules/company/model/company.slice';
 import { profileSelector } from '@/modules/profile/model/profile.slice';
 import { BiSolidBriefcase, BiSolidDashboard, BiSolidGraduation, BiSolidGroup } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
-import { cn } from '@/shared/lib/utils';
+import { Flex, Layout, Menu, MenuProps } from 'antd';
+import styled from 'styled-components';
+import { COLORS } from '@/shared/lib/constants';
 
-const initialSidebarMenuItems: TSidebarMenuItem[] = [
-  {
-    icon: <BiSolidDashboard  className="w-6 h-6"/>,
-    isActive: false,
-    text: 'Главная',
-    routeName: 'home'
-  },
-  {
-    icon: <BiSolidBriefcase  className="w-6 h-6"/>,
-    isActive: false,
-    text: 'Команды',
-    routeName: 'teams'
-  },
-  {
-    icon: <BiSolidGroup  className="w-6 h-6"/>,
-    isActive: false,
-    text: 'Сотрудники',
-    routeName: 'employees'
-  },
-  {
-    icon: <BiSolidGraduation  className="w-6 h-6"/>,
-    isActive: false,
-    text: 'Курсы',
-    routeName: 'courses'
-  },
-];
+const { Sider } = Layout;
+
+const SiderStyle = styled(Sider)`
+  background: ${COLORS.LIGHT[0]} !important;
+  & .ant-layout-sider-trigger {
+    background: ${COLORS.LIGHT[0]};
+    & span {
+      padding: 5px;
+      border: 1px solid ${COLORS.PRIMARY[9]};
+      border-radius: 100%;
+      color: ${COLORS.PRIMARY[9]};
+    }
+  }
+`
+
+const MenuStyle = styled(Menu)`
+  & li.ant-menu-item:first-child {
+    height: 60px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    &.ant-menu-item-selected {
+      background: none;
+    }
+    & span.ant-menu-title-content {
+      margin-left: 12px;
+      & div {
+        padding-bottom: 15px;
+      }
+      & span {
+        font-weight: 400;
+        margin: 0;
+        height: 25px;
+        &:first-child {
+          font-weight: 500;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  & li.ant-menu-item {
+    padding: 6px 24px;
+    & svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+`
+
+type TSidebarMenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+  label: ReactNode,
+  key: Key,
+  icon?: ReactNode,
+): TSidebarMenuItem {
+  return {
+    key,
+    icon,
+    label,
+  } as TSidebarMenuItem;
+}
 
 const Sidebar = memo(() => {
-  {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const pathnameSegments = usePathnameSegments();
-    const [sidebarMenuItems, setSidebarMenuItems] = useState<TSidebarMenuItem[]>(initialSidebarMenuItems);
-    const company = useSelector(companySelector);
-    const user = useSelector(profileSelector);
-    const sidebar = useSelector(sidebarSelector);
+  const [collapsed, setCollapsed] = useState(false);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const pathnameSegments = usePathnameSegments();
+  const company = useSelector(companySelector);
+  const user = useSelector(profileSelector);
+  const sidebar = useSelector(sidebarSelector);
 
-    const handleClick = () => {
-      dispatch(setSidebarOpenState(!sidebar.isOpen))
-    }
+  const initialSidebarMenuItems: TSidebarMenuItem[] = [
+    getItem(
+      <Flex vertical>
+        <span>{company?.name}</span>
+        <span>{user?.firstName + ' ' + user?.lastName}</span>
+      </Flex>, 
+      'company',
+      <SidebarCompanyLogo imageSrc={company?.logo ? company.logo : ''}/>
+    ),
+    getItem('Главная', 'home', <BiSolidDashboard/>),
+    getItem('Команды', 'teams', <BiSolidBriefcase/>),
+    getItem('Сотрудники', 'employees', <BiSolidGroup/>),
+    getItem('Курсы', 'courses', <BiSolidGraduation/>)
+  ]
 
-    useEffect(() => {
-      const updatedItems = initialSidebarMenuItems.map(item => ({
-        ...item,
-        isActive: pathnameSegments[0] === item.routeName,
-      }));
-      setSidebarMenuItems(updatedItems);
-    }, [pathnameSegments]);
-
-    return (
-      <Accordion type="single" collapsible defaultValue="item-1" className='relative'>
-        <AccordionItem value="item-1" className='bg-white flex flex-col min-w-[80px] max-w-[260px] pl-4 pr-4 pt-[20px] pb-[34px] gap-6 shadow-[3px_0px_40px_0px_rgba(87,156,216,0.10)] z-10 sticky h-screen top-0'>
-          <div
-            className={cn('flex mb-8 cursor-pointer hover:bg-sky-600 hover:bg-opacity-5 py-2 px-3 rounded-[10px]', !sidebar.isOpen && 'px-0 py-0 hover:bg-transparent')}
-            onClick={() => { navigate('/company'); }}
-          >
-            <SidebarCompanyLogo imageSrc={company?.logo ? company.logo : ''}/>
-            <AccordionContent className='ml-3'>
-              <h2 className='text-base font-medium'>{company?.name}</h2>
-              <h2 className='text-sm font-normal text-[#4f7596] whitespace-nowrap'>{user?.firstName + ' ' + user?.lastName}</h2>
-            </AccordionContent>
-          </div>
-          {sidebarMenuItems.map((item) => (
-            <SidebarMenuItem
-              key={item.routeName}
-              icon={item.icon}
-              isActive={item.isActive}
-              text={<AccordionContent className='w-[170px] flex justify-start'>{item.text}</AccordionContent>}
-              routeName={item.routeName}
-            />
-          ))}
-          <AccordionTrigger onClick={handleClick} className='absolute right-0 top-[80px] border border-[#0369a1] rounded-full translate-x-1/2 bg-white'></AccordionTrigger>
-        </AccordionItem>
-      </Accordion>
-    );
+  const handleClick = () => {
+    dispatch(setSidebarOpenState(!sidebar.isOpen))
   }
+
+  return (
+    <SiderStyle width='260px' collapsible collapsed={collapsed} onCollapse={(value) => {
+      handleClick()
+      setCollapsed(value)
+    }}>
+      <MenuStyle onClick={(e) => { navigate('/' + e.key) }} selectedKeys={[pathnameSegments[0]]} mode="inline" items={initialSidebarMenuItems} />
+    </SiderStyle>
+  );
 })
 
 export default Sidebar

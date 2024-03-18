@@ -1,18 +1,27 @@
 import { FC } from 'react';
-import BurgerMenu from './BurgerMenu';
 import Menu from './Menu';
-import { useSelector } from '@/store';
-import { sidebarSelector } from '@/modules/sidebar/model/sidebar.slice';
+import { Flex } from 'antd';
+import styled from 'styled-components';
+import { COLORS } from '@/shared/lib/constants';
+
+const FlexStyle = styled(Flex)`
+  position: sticky;
+  background: ${COLORS.LIGHT[0]};
+  top: 0;
+  padding: 0 16px;
+  z-index: 10;
+`
+const H1Style = styled('h1')`
+  font-size: 1.2rem;
+  font-weight: 700;
+`
 
 const Navbar: FC = () => {
-  const sidebar = useSelector(sidebarSelector)
-
   return (
-    <div className="w-full bg-white px-[50px] py-4 flex justify-between items-center sticky top-0 z-10">
-      <h1 className="text-lg text-[#0d141c] font-bold">{sidebar?.width ? '' : 'OneStep'}</h1>
+    <FlexStyle gap={2} justify='space-between' align='center'>
+      <H1Style>OneStep</H1Style>
       <Menu />
-      <BurgerMenu />
-    </div>
+    </FlexStyle>
   );
 };
 
