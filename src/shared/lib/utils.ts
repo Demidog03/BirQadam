@@ -34,7 +34,7 @@ export const convertFileToBase64 = (
   };
 };
 
-export const isFileTypeSupported = (fileType: string, supportedTypes: string[]): boolean => {
+export const isFileTypeSupported = (fileType: (string) , supportedTypes: string[]): boolean => {
   return supportedTypes.includes(fileType);
 };
 

@@ -1,6 +1,11 @@
 import { FC } from 'react'
 import AvatarEmployee from './AvatarEmployee'
 import { Employee } from '../model/employee.types'
+import { Flex } from 'antd'
+import Title from 'antd/lib/typography/Title'
+import { Typography } from 'antd';
+
+const { Text } = Typography;
 
 interface ItemInterface {
   item:Employee
@@ -8,21 +13,24 @@ interface ItemInterface {
 
 const EmployeesItem: FC<ItemInterface> = ({ item }) => {
   return (
-    <div className='flex justify-between items-center w-full'>
-      <div className='flex items-center px-3'>
+    <Flex justify='space-between' align='center' style={{ width: '96%' }}>
+      <Flex align='center' style={{ paddingLeft: '12px', paddingRight: '12px' }}>
         <AvatarEmployee
           imageSrc={item.avatarSrc}
           firstName={item.fullName.split(' ')[0] || ''}
           lastName={item.fullName.split(' ')[1] || ''}
           isActive={item.isActive}
         />
-        <div className='pl-6 max-[430px]:pl-3'>
-          <h2 className='font-medium text-base max-[430px]:text-[12px] text-wrap'>{item.fullName}</h2>
-          <p className='font-normal text-sm text-[#4f7596] max-[430px]:text-[10px]'>{item.jobTitle}</p>
+        <div style={{ paddingLeft: '24px', maxWidth: '430px', }}>
+          <Title level={4} style={{ margin: 0 }}>
+            {item.fullName}
+          </Title>
+          <Text type="secondary" >{item.jobTitle}</Text>
         </div>
-      </div>
+      </Flex>
       <div><span>...</span></div>
-    </div>
+    </Flex>
+
   )
 }
 

@@ -3,6 +3,7 @@ import EmployeesItem from './EmployeesItem'
 import InviteEmployee from './InviteEmployee'
 import { useDispatch, useSelector } from 'react-redux';
 import { addEmployee, employeesSelector } from '../model/employee.slice';
+import { Flex } from 'antd';
 
 const EmployeesList: FC = () => {
   const dispatch = useDispatch()
@@ -18,11 +19,11 @@ const EmployeesList: FC = () => {
   };
   return (
     <>
-      <div className="flex flex-col gap-6">
+      <Flex vertical gap={'24px'}>
         {employees?.map((item, index) => (
           <EmployeesItem key={index} item={item} />
         ))}
-      </div>
+      </Flex>
       <InviteEmployee handleChange={handleChange}/>
     </>
   );

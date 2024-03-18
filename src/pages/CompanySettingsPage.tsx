@@ -1,68 +1,70 @@
-import { Input } from '@/shared/shadcnUI/input';
-import { Label } from '@/shared/shadcnUI/label';
-import { ChangeEvent, useState } from 'react';
-import { Button } from '@/shared/shadcnUI/button';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from '@/store';
 import {
   companySelector,
   updateCompanyAction,
 } from '@/modules/company/model/company.slice.ts';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+
 import { useDispatch } from 'react-redux';
 import { toast } from '@/shared/shadcnUI/use-toast';
 import {
-  convertFileToBase64,
   isFileTypeSupported,
 } from '@/shared/lib/utils.ts';
 import { Company } from '@/modules/company/model/company.types';
+import { Upload, Form, UploadFile, Flex, Button, } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { UploadChangeParam } from 'antd/es/upload';
+import Title from 'antd/es/typography/Title';
+import Input from 'antd/lib/input';
 
-const CompanySettingsSchema = Yup.object().shape({
-  name: Yup.string().required('Требуется название компании'),
-});
 
 export const CompanySettingsPage = () => {
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<UploadFile>();
   const company = useSelector(companySelector);
   const dispatch = useDispatch();
   const serverCompanyData = company as Company;
-
-  const formik = useFormik<Company>({
-    initialValues: {
-      name: serverCompanyData.name,
-      id: serverCompanyData.id,
-      bin: serverCompanyData.bin,
-      employeeNumbers: serverCompanyData.employeeNumbers,
-      logo: serverCompanyData.logo,
+  const [base64, setBase64] = useState('')
+  const [name, setName] = useState (company?.name || '')
+  const [ss, setSS] = useState< Array<UploadFile>>([
+    {
+      uid: '1',
+      name: 'default.png',
+      status: 'done',
+      url: `${serverCompanyData.logo}`,
     },
-    validationSchema: CompanySettingsSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      console.log(image);
-      dispatch(
-        updateCompanyAction({
-          name: values.name,
-          bin: serverCompanyData.bin,
-          employeeNumbers: serverCompanyData.employeeNumbers,
-          logo: image.split(',')[1],
-          id: serverCompanyData.id,
-        })
-      );
-    },
-  });
+  ])
+  const [disableButton, setDisableButton] = useState(true)
 
-  const fileHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      toast({
-        variant: 'destructive',
-        description: 'Выберите файл для загрузки.',
-      });
-      return;
-    }
+  const handleSubmit = () =>{
+    dispatch(
+      updateCompanyAction({
+        name: name,
+        bin: serverCompanyData.bin,
+        employeeNumbers: serverCompanyData.employeeNumbers,
+        logo: base64,
+        id: serverCompanyData.id,
+      })
+    )
+  }
+  useEffect(() => {
+    const base = image?.thumbUrl as string
+    setBase64(base);
+  }, [image])
 
+
+  const companyNameValue = (e:ChangeEvent<HTMLInputElement>) =>{
+    setDisableButton(false)
+    setName(e.target.value)
+    console.log(ss)
+    console.log(serverCompanyData.logo)
+  }
+
+
+  const  fileHandleChange  = async ( e: UploadChangeParam<UploadFile<unknown>>) => {
+    setDisableButton(false)
+    const file = e.file as UploadFile
     if (
-      !isFileTypeSupported(file.type, ['image/png', 'image/jpeg', 'image/gif'])
+      !isFileTypeSupported(file.type as string, ['image/png', 'image/jpeg', 'image/gif'])
     ) {
       toast({
         variant: 'destructive',
@@ -70,97 +72,70 @@ export const CompanySettingsPage = () => {
       });
       return;
     }
-
-    convertFileToBase64(file, (result) => {
-      if ('error' in result) {
-        toast({
-          variant: 'destructive',
-          description: result.error,
-        });
-      } else {
-        console.log(result);
-        setImage(result.image);
-      }
-    });
+    setSS([e.file])
+    setImage(file)
+    // eslint-disable-next-line @typescript-eslint/await-thenable
+    const base = await image?.thumbUrl as string
+    setBase64(base)
   };
+
 
   return (
     <>
-      <div className='flex justify-center items-center'>
-        <div className='flex flex-col w-full py-[50px] justify-center items-center'>
-          <div className='flex w-[100%] mb-[12px]'>
-            <h1 className='slite-950 font-bold text-left text-[32px]/[40px]'>
+      <Flex justify='centr' align='centr'>
+        <Flex vertical justify='centr' align='centr' style={{ width: '100%', paddingTop: '50px', paddingBottom: '50px', }} >
+          <Flex style={{ width: '100%', marginBottom: '12px' }}>
+            <Title level={2}>
               Настройки компании
-            </h1>
-          </div>
-          <div className='flex w-[100%] mb-[8px]'>
-            <h4 className='font-semibold leading-6 text-left'>
-              Название компании
-            </h4>
-          </div>
-          <div className='w-[100%] border-0 flex flex-col'>
+            </Title>
+          </Flex>
+          <Flex style={{ width: '100%', marginBottom: '8px' }}>
+            <Title level={4}>Название компании</Title>
+          </Flex>
+          <Flex vertical= {true} style={{ width: '100%' }}>
             <div className='space-y-1 mb-[20px]'>
               <Input
                 id='name'
-                className=' h-[56px] text-base'
-                onChange={formik.handleChange}
-                value={formik.values.name}
+                onChange={companyNameValue}
+                value={name}
               />
             </div>
-            {formik.errors.name && (
-              <div className='text-rose-500 ml-1 text-sm !mb-[-24px]'>
-                {formik.errors.name}
-              </div>
-            )}
-            <div className='flex w-[100%] justify-start items-center'>
-              <div>
-                <img
-                  src={company?.logo || image}
-                  className=' max-h-[70px] max-w-[75px] rounded-lg'
-                />
-              </div>
-              <div className='space-y-1 '>
-                <Label
-                  className=' cursor-pointer text-[16px] text-[#0D141C] ml-[16px] font-medium'
-                  htmlFor='logo'
-                >
-                  Сменить логотип
-                </Label>
-                <Input
-                  id='logo'
-                  className='border-0 hidden'
-                  type='file'
-                  onChange={(e) => {
-                    fileHandleChange(e);
-                  }}
-                  accept='.png,.jpg,.jpeg,.gif'
-                  value={formik.values.logo}
-                />
-              </div>
-            </div>
-            <div className='flex justify-end mt-[12px]'>
-              <Button
-                type='reset'
-                className='hover:bg-[#C0C0C0] mr-[10px] rounded-xl'
-                variant='secondary'
-                onClick={ () => { formik.resetForm({ values: formik.initialValues }); setImage('')}}
-              >
-                
+            <Form >
+              <Form.Item label="Upload" valuePropName="fileList">
+                <Upload action={'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188' }
+                  listType="picture-card" maxCount= {1} onChange={fileHandleChange}  fileList={ss}>
+                  <button style={{ border: 0, background: 'none' }} type="button">
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Сменить логотип</div>
+                  </button>
+                </Upload>
+              </Form.Item>
+            </Form>
+            <Flex justify='end' style={{ marginTop: '12px' }}>
+              <Button size='middle' onClick={ () => { 
+                setSS([
+                  {
+                    uid: '1',
+                    name: 'default.png',
+                    status: 'done',
+                    url: `${serverCompanyData.logo}`,
+                  },
+                ])
+                setName(serverCompanyData.name); 
+                setDisableButton(true)
+              }}>
                 Отменить
               </Button>
-              <Button
-                type='button'
-                className=' bg-[#1A8AE5] hover:bg-[#0369A1] rounded-xl'
-                onClick={() => {
-                  formik.handleSubmit();
-                }}
-              >
-                Сохранить
+              <Button type="primary" size='middle' style={{ marginLeft: '20px' }} disabled={disableButton} onClick={() => {
+                handleSubmit();
+              }}>
+            Сохранить
               </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Flex>
+          </Flex>
+        </Flex>
+
+      </Flex>
     </>
   );
 };
