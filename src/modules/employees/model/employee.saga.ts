@@ -3,7 +3,7 @@ import { setCompanyLoading } from '@/modules/company/model/company.slice';
 import { toast } from '@/shared/shadcnUI/use-toast.tsx';
 import { inviteEmployeeApi } from '../api/employees.api';
 import { ResponseType } from '@/shared/lib/types.ts';
-import { inviteEmployeeAction, inviteEmployee } from './emloyeeSliseInvite';
+import { inviteEmployeeAction, inviteEmployee } from './employee.slice';
 
 function* inviteEmployeeSaga(action: ReturnType<typeof inviteEmployeeAction>) {
   try {
@@ -23,7 +23,6 @@ function* inviteEmployeeSaga(action: ReturnType<typeof inviteEmployeeAction>) {
     yield put(
       inviteEmployee({
         recipient_email: response.data.recipient_email,
-        //token: response.data.token,
         invite_type: response.data.invite_type,
         team_id: response.data.team_id,
         company_id: response.data.company_id,
@@ -37,6 +36,6 @@ function* inviteEmployeeSaga(action: ReturnType<typeof inviteEmployeeAction>) {
   }
 }
 
-export function* inviteEmployeeSagaa() {
+export function* EmployeeSaga() {
   yield takeLeading(inviteEmployeeAction.type, inviteEmployeeSaga);
 }

@@ -1,5 +1,10 @@
 export interface EmployeesState {
   employees: Employee[]
+  recipient_email: string,
+  invite_type: string,
+  team_id: number,
+  company_id: number,
+  id: number
 }
 
 export interface Employee {
@@ -8,3 +13,4 @@ export interface Employee {
   jobTitle: string
   isActive: boolean
 }
+
