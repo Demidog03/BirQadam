@@ -15,9 +15,12 @@ import { COLORS } from '@/shared/lib/constants';
 const { Sider } = Layout;
 
 const SiderStyle = styled(Sider)`
-  background: ${COLORS.LIGHT[0]} !important;
+  background: white !important;
   & .ant-layout-sider-trigger {
-    background: ${COLORS.LIGHT[0]};
+    background: white;
+    &:hover {
+      background-color: ${COLORS.LIGHT[5]};
+    }
     & span {
       padding: 5px;
       border: 1px solid ${COLORS.PRIMARY[9]};
@@ -28,6 +31,7 @@ const SiderStyle = styled(Sider)`
 `
 
 const MenuStyle = styled(Menu)`
+  padding: 20px 5px;
   & li.ant-menu-item:first-child {
     height: 60px;
     padding: 8px 16px;
