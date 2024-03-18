@@ -1,30 +1,56 @@
 import { FC } from 'react';
-import ContentWithTitleLayout from "@/shared/lib/layouts/ContentWithTitleLayout.tsx";
+import { Card } from 'antd';
+import styled from 'styled-components';
+import { COLORS, FONTS } from '@/shared/lib/constants.ts';
 
 interface ProfileEditInterface {
-    completedCoursesCount: number
-    averageScore: number
+  completedCoursesCount: number
+  averageScore: number
 }
 
-const EmployeeProgress: FC<ProfileEditInterface> = ({ completedCoursesCount , averageScore}) => {
-    return (
-        <div className="w-full flex pb-0">
-            <div className="w-1/2 mr-2 border-1 border-gray-300">
-                    <ContentWithTitleLayout title='Courses Completed' className={"border border-gray-300 py-6 pb-6 rounded-xl"}>
-                        <div className="ml-4 font-bold text-3xl leading-10 tracking-tight text-gray-800">
-                            <p>{completedCoursesCount}</p>
-                        </div>
-                    </ContentWithTitleLayout>
-            </div>
-            <div className="w-1/2 ml-2">
-                <ContentWithTitleLayout title="Average Score" className={"border border-gray-300 py-6 pb-6 rounded-xl text-gray-800"}>
-                    <div className="ml-4 font-bold text-3xl leading-10 tracking-tight text-gray-800">
-                        <p>{averageScore} %</p>
-                    </div>
-                </ContentWithTitleLayout>
-            </div>
-        </div>
-    )
+const Container = styled.div`
+  display: flex;
+  padding-bottom: 0;
+  gap: 16px;
+`;
+
+const StyledCard = styled(Card)`
+  width: 50%;
+  flex: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+`;
+
+const Title = styled.div`
+  font-family: ${FONTS.MAINFONTFAMILY};
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+  color: ${COLORS.SECONDARY[9]};
+`;
+
+const Value = styled.div`
+  font-family: ${FONTS.MAINFONTFAMILY};
+  margin-top: 16px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  color: ${COLORS.SECONDARY[9]};
+`;
+
+const EmployeeProgress: FC<ProfileEditInterface> = ({ completedCoursesCount, averageScore }) => {
+  return (
+    <Container>
+      <StyledCard>
+        <Title>Courses Completed</Title>
+        <Value>{completedCoursesCount}</Value>
+      </StyledCard>
+      <StyledCard>
+        <Title>Average Score</Title>
+        <Value>{averageScore} %</Value>
+      </StyledCard>
+    </Container>
+  )
 }
 
-export default EmployeeProgress
+export default EmployeeProgress;

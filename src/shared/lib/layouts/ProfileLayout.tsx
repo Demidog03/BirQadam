@@ -1,15 +1,33 @@
 import { FC, ReactNode } from 'react';
+import styled from 'styled-components';
+import { Layout } from 'antd';
 
+const { Content } = Layout;
 
-const ProfileLayout: FC<{children: ReactNode}> = ({ children }) => {
+const StyledProfileLayout = styled(Layout)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+`;
 
-    return (
-        <div className="w-full h-full flex justify-center">
-            <div className="w-full max-w-screen-lg px-4 space-y-4">
-                {children}
-            </div>
-        </div>
-    );
+const ContentContainer = styled(Content)`
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const ProfileLayout: FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <StyledProfileLayout>
+      <ContentContainer>
+        {children}
+      </ContentContainer>
+    </StyledProfileLayout>
+  );
 };
 
 export default ProfileLayout;

@@ -11,3 +11,9 @@ export const COLORS = {
   ERROR,
   LIGHT
 }
+
+const MAINFONTFAMILY = 'Public Sans';
+
+export const FONTS = {
+  MAINFONTFAMILY,
+}
