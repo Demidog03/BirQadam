@@ -7,7 +7,7 @@ import {
   SliceCaseReducers
 } from '@reduxjs/toolkit';
 import { RootState } from '@/store';
-import { Profile, ProfileState } from '@/modules/profile/model/profile.types.ts';
+import { Profile, ProfileState, ProfileUpdatePayload } from '@/modules/profile/model/profile.types.ts';
 import { ActionLoading } from '@/shared/lib/types.ts';
 
 const initialState: ProfileState = {
@@ -39,7 +39,7 @@ const profileSlice = createSlice<ProfileState, Reducers<ProfileState>>({
 })
 
 export const fetchProfile = createAction('profile/fetchProfile')
-
+export const updateProfileAction = createAction<ProfileUpdatePayload>('profile/updateProfileAction')
 export const {
   setProfileLoading,
   setProfile,
