@@ -5,7 +5,7 @@ import { Flex } from 'antd';
 
 const Menu: FC = () => {
   return (
-    <Flex align='center' gap={2.5}>
+    <Flex align='center' gap={14}>
       <HelpIcon />
       <ProfileMenu/>
     </Flex>

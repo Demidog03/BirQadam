@@ -6,10 +6,11 @@ import { COLORS } from '@/shared/lib/constants';
 
 const FlexStyle = styled(Flex)`
   position: sticky;
-  background: ${COLORS.LIGHT[0]};
+  background: white;
   top: 0;
-  padding: 0 16px;
+  padding: 10px 32px;
   z-index: 10;
+  box-shadow: ${COLORS.LIGHT[5]} 0px 1px 0px;
 `
 const H1Style = styled('h1')`
   font-size: 1.2rem;
