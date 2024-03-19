@@ -36,6 +36,6 @@ function* inviteEmployeeSaga(action: ReturnType<typeof inviteEmployeeAction>) {
   }
 }
 
-export function* EmployeeSaga() {
+export function* employeeSaga() {
   yield takeLeading(inviteEmployeeAction.type, inviteEmployeeSaga);
 }

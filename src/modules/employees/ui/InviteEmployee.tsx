@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { IoIosAddCircle } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
-import { inviteEmployeeAction } from '../model/emloyeeSliseInvite';
+import { inviteEmployeeAction } from '../model/employee.slice';
 import { inviteEmployeeRequest } from '../api/employees.api.types';
 import { profileSelector } from '@/modules/profile/model/profile.slice';
 import { tokenSelector } from '@/modules/auth/model/auth.slice';
