@@ -1,8 +1,7 @@
 import { CaseReducer, PayloadAction, SliceCaseReducers, createAction, createSlice } from '@reduxjs/toolkit'
-import { Employee, EmployeesState } from './employee.types'
+import { Employee, EmployeesState, InviteEmployeePayload } from './employee.types'
 import { RootState } from '@/store'
 import { data } from '../ui/data/data'
-import { InviteEmployeeRequest } from '../api/employees.api.types'
 
 
 const initialState: EmployeesState = {
@@ -25,7 +24,7 @@ const employeesSlice = createSlice<EmployeesState, Reducers<EmployeesState>>({
 
 
 
-export const inviteEmployeeAction = createAction<InviteEmployeeRequest>(
+export const inviteEmployeeAction = createAction<InviteEmployeePayload>(
   'employee/invite'
 );
 

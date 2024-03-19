@@ -1,11 +1,10 @@
 import { AxiosPromise } from 'axios';
 import { apiWithAuthAndErrorMessaging } from '@/api/api.ts';
-import { InviteEmployeeRequest, inviteEmployeeResponse } from './employees.api.types';
+import { InviteEmployeeBody, InviteEmployeeResponse } from './employees.api.types';
 
 export const inviteEmployeeApi = async (
-  body: InviteEmployeeRequest
-): AxiosPromise<inviteEmployeeResponse> => {
-  console.log(body)
+  body: InviteEmployeeBody
+): AxiosPromise<InviteEmployeeResponse> => {
   return await apiWithAuthAndErrorMessaging.post('/users/invite/', body);
 };
 

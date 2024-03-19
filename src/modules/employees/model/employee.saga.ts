@@ -7,12 +7,11 @@ import { inviteEmployeeAction } from './employee.slice';
 function* inviteEmployeeSaga(action: ReturnType<typeof inviteEmployeeAction>) {
   try {
     yield put(setCompanyLoading({ actionType: action.type, isLoading: true }));
-
     yield call(inviteEmployeeApi, {
-      recipient_email: action.payload.recipient_email,
-      invite_type: action.payload.invite_type,
-      team_id: action.payload.team_id,
-      company_id: action.payload.company_id
+      recipient_email: action.payload.recipientEmail,
+      invite_type: action.payload.inviteType,
+      team_id: action.payload.teamId,
+      company_id: action.payload.companyId    
     });
     toast({
       variant: 'default',
