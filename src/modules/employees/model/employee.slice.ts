@@ -2,7 +2,7 @@ import { CaseReducer, PayloadAction, SliceCaseReducers, createAction, createSlic
 import { Employee, EmployeesState } from './employee.types'
 import { RootState } from '@/store'
 import { data } from '../ui/data/data'
-import { inviteEmployeeRequest } from '../api/employees.api.types'
+import { InviteEmployeeRequest } from '../api/employees.api.types'
 
 
 const initialState: EmployeesState = {
@@ -13,8 +13,6 @@ interface Reducers<State> extends SliceCaseReducers<State> {
   addEmployee: CaseReducer<State, PayloadAction<Employee>>,
 }
 
-
-  
 const employeesSlice = createSlice<EmployeesState, Reducers<EmployeesState>>({
   name: 'employees',
   initialState,
@@ -27,14 +25,14 @@ const employeesSlice = createSlice<EmployeesState, Reducers<EmployeesState>>({
 
 
 
-export const inviteEmployeeAction = createAction<inviteEmployeeRequest>(
+export const inviteEmployeeAction = createAction<InviteEmployeeRequest>(
   'employee/invite'
 );
 
 export const fetchEmployee = createAction('employee/fetchEmployees')
 
-export const { addEmployee, inviteEmployee } = employeesSlice.actions
-  
+export const { addEmployee  } = employeesSlice.actions
+
 export const employeesSelector = (state: RootState): Employee[] | null => state.employees.employees
-    
+
 export default employeesSlice.reducer
