@@ -8,7 +8,7 @@ const FlexStyle = styled(Flex)`
   position: sticky;
   background: white;
   top: 0;
-  padding: 16px 32px 10px;
+  padding: 10px 32px;
   z-index: 10;
   box-shadow: ${COLORS.LIGHT[5]} 0px 1px 0px;
 `
