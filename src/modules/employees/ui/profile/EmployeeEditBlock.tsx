@@ -1,10 +1,17 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { Card as AntCard, Button as AntButton } from 'antd';
 import styled from 'styled-components';
 import { COLORS, FONTS } from '@/shared/lib/constants.ts';
 import { useDispatch } from 'react-redux';
 import { profileSelector, updateProfileAction } from '@/modules/profile/model/profile.slice.ts';
 import { useSelector } from '@/store';
+
+interface EditedProfileValues {
+  firstName: string
+  lastName: string
+  jobTitle: string
+  email: string
+}
 
 const Container = styled.div`
     width: 100%;
@@ -91,19 +98,19 @@ const EmployeeEditBlock: FC = () => {
   const profile = useSelector(profileSelector);
   const dispatch = useDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
-  const [editedProfile, setEditedProfile] = useState({
+  const [editedProfile, setEditedProfile] = useState<EditedProfileValues>({
     firstName: profile?.firstName || '',
     lastName: profile?.lastName || '',
     jobTitle: profile?.jobTitle || '',
     email: profile?.email || '',
   });
 
+
   const handleEditProfileClick = () => {
     setIsEditMode(!isEditMode);
   };
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  const handleSaveClick = async () => {
+  const handleSaveClick = () => {
     dispatch(updateProfileAction(editedProfile));
     setIsEditMode(false);
   };
@@ -118,13 +125,24 @@ const EmployeeEditBlock: FC = () => {
     setIsEditMode(false);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditedProfile(prev => ({
       ...prev,
       [name]: value
     }));
   };
+
+  useEffect(() => {
+    if (profile) {
+      setEditedProfile({
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        jobTitle: profile.jobTitle,
+        email: profile.email,
+      });
+    }
+  }, [profile]);
 
   return (
     <Container>

@@ -11,12 +11,19 @@ export interface Profile {
   email: string
   firstName: string
   lastName: string
-  jobTitle: string | null
+  jobTitle: string
   birthDate: string | null
   team: {
     id: number
     name: string
     logo: string
-    company: Company | null
   } | null
+  company: Company | null
+}
+
+export interface ProfileUpdatePayload {
+  email?: string
+  firstName?: string
+  lastName?: string
+  jobTitle?: string
 }

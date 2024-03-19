@@ -37,12 +37,12 @@ const learningPathData = [
 ]
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-width: 100%;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 `;
 
 const StyledTabs = styled(Tabs)`
@@ -52,7 +52,7 @@ const StyledTabs = styled(Tabs)`
         background-color: transparent;
         border-bottom: none;
     }
-    
+
     .ant-tabs-nav-list{
         width: 100%;
         justify-content: space-between;
@@ -71,7 +71,7 @@ const StyledTabs = styled(Tabs)`
             color: ${COLORS.PRIMARY[4]};
         }
         &.ant-tabs-tab-active {
-            border-bottom: 4px solid blue 400;
+            border-bottom: 4px solid blue;
             .ant-tabs-tab-btn {
                 color: #0D141C;
             }
@@ -88,29 +88,23 @@ const items: TabsProps['items'] = [
   {
     key: '2',
     label: 'Courses',
-    children: 'Content of Tab Pane 2',
+    children: 'children of Tab Pane 2',
   },
   {
     key: '3',
     label: 'Quizzes',
-    children: 'Content of Tab Pane 3',
+    children: 'children of Tab Pane 3',
   },
   {
     key: '4',
     label: 'Projects',
-    children: 'Content of Tab Pane 3',
+    children: 'children of Tab Pane 3',
   },
 ];
 
 const EmployeeProfileTabs: FC = () =>
   <Container>
-    <StyledTabs defaultActiveKey="1">
-      {items.map(item => (
-        <Tabs.TabPane key={item.key} tab={item.label}>
-          {item.children}
-        </Tabs.TabPane>
-      ))}
-    </StyledTabs>
+    <StyledTabs defaultActiveKey="1" items={items} />
   </Container>
 
 export default EmployeeProfileTabs;
