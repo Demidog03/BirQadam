@@ -8,3 +8,12 @@ export interface Employee {
   jobTitle: string
   isActive: boolean
 }
+
+export interface InviteEmployeePayload {
+  recipientEmail: string,
+  inviteType: string,
+  teamId: number,
+  companyId: number
+}
+
+export interface InviteEmployeeValues extends InviteEmployeePayload{}
