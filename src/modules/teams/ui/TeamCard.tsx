@@ -15,7 +15,7 @@ export const TeamCard: FC<TeamCardProps> = ({ image, category, manager, numberEm
   return (
     <Card className="rounded-[10px] h-full flex flex-col justify-between border-spacing-1">
       <CardHeader className='p-0'>
-        <img src={image} alt={getAltFromImageSrc(image)} className='rounded-t-lg' />
+        <img src={image} alt={getAltFromImageSrc(image)} className='rounded-t-lg' style={{width: '100%'}} />
       </CardHeader>
       <CardContent className=' p-4'>
         <CardTitle className=' text-base font-bold'>{category}</CardTitle>
