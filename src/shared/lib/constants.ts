@@ -9,8 +9,7 @@ export const COLORS = {
   PRIMARY,
   SECONDARY,
   ERROR,
-  LIGHT,
-  ONLINE
+  LIGHT
 }
 
 const MAINFONTFAMILY = 'Public Sans';
