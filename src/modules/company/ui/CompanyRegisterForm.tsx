@@ -62,7 +62,6 @@ const CompanyRegisterForm: FC = () => {
   const onFinish = (values: CompanyRegisterFormValues) => {
     console.log(values)
 
-    return
     dispatch(createCompanyAction({
       name: values.companyName,
       bin: values.BIN,

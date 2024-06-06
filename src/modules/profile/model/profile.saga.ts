@@ -47,7 +47,12 @@ function* updateProfileSaga(action: ReturnType<typeof updateProfileAction>) {
   try {
     yield put(setProfileLoading({ actionType: action.type, isLoading: true }));
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const response: ResponseType<ReturnType<typeof updateProfileApi>> = yield call(updateProfileApi, action.payload);
+    const response: ResponseType<ReturnType<typeof updateProfileApi>> = yield call(updateProfileApi, {
+      last_name: action.payload.lastName,
+      first_name: action.payload.firstName,
+      job_title: action.payload.jobTitle,
+      email: action.payload.email
+    });
     yield put(setProfile({
       id: response.data.id,
       email: response.data.email,
@@ -60,7 +65,6 @@ function* updateProfileSaga(action: ReturnType<typeof updateProfileAction>) {
       } : null,
       company: response.data.company ? {
         ...response.data.company,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         employeeNumbers: response.data.company.employeeNumbers,
       } : null
     }))

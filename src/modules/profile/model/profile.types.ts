@@ -11,7 +11,7 @@ export interface Profile {
   email: string
   firstName: string
   lastName: string
-  jobTitle: string | null
+  jobTitle: string
   birthDate: string | null
   team: {
     id: number
