@@ -1,23 +1,59 @@
-import { FC } from 'react';
-import ManagerEmployeesList from '@/modules/employees/ui/ManagerEmployeesList.tsx'
+import React, { FC } from 'react';
+import styled from 'styled-components';
+import { Input } from 'antd';
+import ManagerEmployeesList from '@/modules/employees/ui/ManagerEmployeesList.tsx';
 import EmployeesList from '@/modules/employees/ui/EmployeesList';
-import SearchInput2 from '@/shared/ui/SearchInput2';
+
+const { Search } = Input;
+
+const PageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const ContentContainer = styled.div`
+  width: 100%;
+  padding: 24px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const Title = styled.h1`
+  font-size: 4rem;
+  color: #0d141c;
+  font-weight: 900;
+  padding: 16px;
+  
+  @media (max-width: 430px) {
+    font-size: 2rem;
+  }
+`;
+
+const SearchContainer = styled.div`
+  margin-left: 8px;
+`;
+
+const ListsContainer = styled.div`
+  width: 100%;
+  margin-left: 20px;
+`;
 
 const EmployeesPage: FC = () => {
   return (
-    <div className="w-full h-full">
-      <div className="w-full px-3 py-6 m-auto flex flex-col justify-between">
-        <h1 className="text-4xl text-[#0d141c] font-black py-4 px-3 max-[430px]:text-2xl">Все сотрудники</h1>
-        <div className='ml-2'>
-          <SearchInput2/>
-        </div>
-        <div style={{ width: '100%', marginLeft: '20px' }}>
-          <ManagerEmployeesList/>
-          <EmployeesList/>
-        </div>
-
-      </div>
-    </div>
+    <PageContainer>
+      <ContentContainer>
+        <Title>Все сотрудники</Title>
+        <SearchContainer>
+          <Search placeholder="Search employees" />
+        </SearchContainer>
+        <ListsContainer>
+          <ManagerEmployeesList />
+          <EmployeesList />
+        </ListsContainer>
+      </ContentContainer>
+    </PageContainer>
   );
 };
 
