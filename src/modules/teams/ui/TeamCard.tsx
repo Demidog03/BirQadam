@@ -11,7 +11,7 @@ interface TeamCardProps {
  
 export const TeamCard: FC<TeamCardProps> = ({ image, category, manager, numberEmployees, }) => { 
   return ( 
-    <Card hoverable cover={<img alt={getAltFromImageSrc(image)} src={image} />}> 
+    <Card hoverable cover={image && <img alt={getAltFromImageSrc(image)} src={image} />}> 
       <Card.Meta  
         title={category} 
         description={(

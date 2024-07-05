@@ -9,3 +9,7 @@ export const createTeamApi = async (body: CreateTeamBody): AxiosPromise<TeamResp
 export const inviteManagerApi = async (body: InviteManagerBody): AxiosPromise<InviteResponse> => {
   return await apiWithAuthAndErrorMessaging.post('/users/invite/', body)
 }
+
+export const fetchTeamsApi = async (): AxiosPromise<TeamResponse[]> => {
+  return await apiWithAuthAndErrorMessaging.get('/teams/');
+}

@@ -1,7 +1,7 @@
 import { put, call, takeLeading } from 'redux-saga/effects';
 import { ResponseType } from '@/shared/lib/types.ts';
-import { createTeamAction, setTeam, setTeamsLoading } from './teams.slice';
-import { createTeamApi, inviteManagerApi } from '../api/teams.api';
+import { createTeamAction, fetchTeamsAction, setTeam, setTeams, setTeamsLoading } from './teams.slice';
+import { createTeamApi, fetchTeamsApi, inviteManagerApi } from '../api/teams.api';
 import { message } from 'antd';
 
 function* createTeamSaga(action: ReturnType<typeof createTeamAction>) {
@@ -41,6 +41,28 @@ function* createTeamSaga(action: ReturnType<typeof createTeamAction>) {
   }
 }
 
+function* fetchTeamsSaga(action: ReturnType<typeof createTeamAction>) {
+  try {
+    yield put(setTeamsLoading({ actionType: action.type, isLoading: true }));
+    const response: ResponseType<ReturnType<typeof fetchTeamsApi>> = yield call(fetchTeamsApi);
+    const teams = response.data.map(team => ({
+      id: team.id,
+      name: team.name,
+      logo: team.logo,
+      company: {
+        employeeNumbers: team.company.employee_numbers
+      },
+    }));
+    yield put(setTeams(teams));
+  } catch (error) {
+    console.error(error);
+  } finally {
+    yield put(setTeamsLoading({ actionType: action.type, isLoading: false }));
+  }
+}
+
 export function* teamsSaga() {
   yield takeLeading(createTeamAction.type, createTeamSaga)
+  yield takeLeading(fetchTeamsAction.type, fetchTeamsSaga);
 }
+
