@@ -33,14 +33,18 @@ const teamsSlice = createSlice<TeamsState, Reducers<TeamsState>>({
       );
       state.loading = [...filteredLoadingStates, action.payload];
     },
+    setTeams: (state, action) => {
+      state.teams = action.payload;
+    },
   }
 })
 
 export const teamsSelector = (state: RootState): Team[] => state.teams.teams
   
 export const createTeamAction = createAction<CreateTeamPayload>('teams/createTeam')
+export const fetchTeamsAction = createAction('teams/fetchTeams');
   
-export const { setTeam, setTeamsLoading } = teamsSlice.actions
+export const { setTeam, setTeamsLoading, setTeams } = teamsSlice.actions
 
 export const teamsLoadingSelector = (actionType: string) =>
   createSelector(
